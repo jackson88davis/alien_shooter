@@ -8,7 +8,7 @@ class Creator:
         self.screen_rect = self.screen.get_rect()
 
         self.width, self.height = 1300, 80
-        self.creator_color = (241, 109, 63)
+        self.creator_color = (224, 89, 57)
         self.text_color = (255, 235, 205)
         self.font = pygame.font.SysFont(None, 108, bold=True, italic=True)
 

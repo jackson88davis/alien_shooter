@@ -11,8 +11,7 @@ from hs import Hs
 from button import Button
 from quit import Quit
 from title import Title
-from instructions import Instructions
-from instructions_open import Instructions_open
+from instructions_move import Instructions_move
 from click import Click
 from creator import Creator
 from background import Background
@@ -62,7 +61,7 @@ class Game:
         self.explosion_sound = pygame.mixer.Sound('sounds/explosion_sound.mp3')
         self.hey_sound = pygame.mixer.Sound('sounds/hey_sound.mp3')
         self.hi_sound = pygame.mixer.Sound('sounds/hi_sound.mp3')
-        self.instructions_sound = pygame.mixer.Sound('sounds/instructions_sound.wav')
+        self.instructions_sound = pygame.mixer.Sound('sounds/instructions_sound.wav') # not used anymore
         self.laser_sound = pygame.mixer.Sound('sounds/laser_sound.ogg')
         self.loss_sound = pygame.mixer.Sound('sounds/loss_sound.wav')
         self.meteor_explosion_sound = pygame.mixer.Sound('sounds/meteor_explosion_sound.ogg')
@@ -79,8 +78,7 @@ class Game:
         self.play_button = Button(self, "Play")
         self.play_quit = Quit(self, "Quit")
         self.play_title = Title(self, "-Planetary Panic-")
-        self.play_instructions = Instructions(self, "Instructions")
-        self.play_instructions_open = Instructions_open(self, "Controls")
+        self.play_instructions_move = Instructions_move(self, "Use the arrow keys to move")
         self.play_creator = Creator(self, "D-a-v-i-s     S-t-u-d-i-o-s")
         self.play_hs = Hs(self, "HIGH SCORE!")
         self.play_click = Click(self)
@@ -117,7 +115,6 @@ class Game:
                 mouse_pos = pygame.mouse.get_pos()
                 self._check_play_button(mouse_pos)
                 self._check_quit(mouse_pos)
-                self._check_instructions(mouse_pos)
                 self._check_click(mouse_pos)
 
     def _check_play_button(self, mouse_pos):
@@ -153,13 +150,6 @@ class Game:
             pygame.mixer.Sound.play(self.quit_sound)
             sleep(1)
             sys.exit()
-
-    def _check_instructions(self, mouse_pos):
-        instructions_clicked = self.play_instructions.rect.collidepoint(mouse_pos)
-        if instructions_clicked:
-            pygame.mixer.Sound.play(self.instructions_sound)
-            sleep(1)
-            self.play_instructions_open.draw_instructions_open()
 
     def _check_click(self, mouse_pos):
         click_clicked = self.play_click.rect.collidepoint(mouse_pos)
@@ -378,13 +368,11 @@ class Game:
             self.click.blitme()
             self.play_button.draw_button()
             self.play_quit.draw_quit()
-            self.play_instructions.draw_instructions()
             self.play_title.draw_title()
             self.play_creator.draw_creator()
+            self.play_instructions_move.draw_instructions_move()
             if self.sb.stats.score > 0 and self.sb.stats.score >= self.sb.stats.high_score:
                 self.play_hs.draw_hs()
-            if self.play_instructions_open:
-                self.play_instructions_open.draw_instructions_open()
 
         pygame.display.flip()
 
