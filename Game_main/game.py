@@ -11,7 +11,8 @@ from hs import Hs
 from button import Button
 from quit import Quit
 from title import Title
-from instructions_move import Instructions_move
+from instructions import Instructions_move
+from instructions import Instructions_shoot
 from click import Click
 from creator import Creator
 from background import Background
@@ -79,6 +80,7 @@ class Game:
         self.play_quit = Quit(self, "Quit")
         self.play_title = Title(self, "-Planetary Panic-")
         self.play_instructions_move = Instructions_move(self, "Use the arrow keys to move")
+        self.play_instructions_shoot = Instructions_shoot(self, "Use the 'a', 'w', and 'd' keys to shoot")
         self.play_creator = Creator(self, "D-a-v-i-s     S-t-u-d-i-o-s")
         self.play_hs = Hs(self, "HIGH SCORE!")
         self.play_click = Click(self)
@@ -117,6 +119,7 @@ class Game:
                 self._check_quit(mouse_pos)
                 self._check_click(mouse_pos)
                 self._check_instructions_move(mouse_pos)
+                self._check_instructions_shoot(mouse_pos)
 
     def _check_play_button(self, mouse_pos):
         pygame.mixer.Sound.play(self.click_sound)
@@ -160,6 +163,11 @@ class Game:
     def _check_instructions_move(self, mouse_pos):
         instructions_move_clicked = self.play_instructions_move.rect.collidepoint(mouse_pos)
         if instructions_move_clicked:
+            pygame.mixer.Sound.play(self.instructions_sound)
+
+    def _check_instructions_shoot(self, mouse_pos):
+        instructions_shoot_clicked = self.play_instructions_shoot.rect.collidepoint(mouse_pos)
+        if instructions_shoot_clicked:
             pygame.mixer.Sound.play(self.instructions_sound)
 
     def _check_keydown_events(self, event):
@@ -377,6 +385,7 @@ class Game:
             self.play_title.draw_title()
             self.play_creator.draw_creator()
             self.play_instructions_move.draw_instructions_move()
+            self.play_instructions_shoot.draw_instructions_shoot()
             if self.sb.stats.score > 0 and self.sb.stats.score >= self.sb.stats.high_score:
                 self.play_hs.draw_hs()
 
