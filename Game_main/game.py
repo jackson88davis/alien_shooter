@@ -19,8 +19,8 @@ from background import Background
 from background1 import Background1
 from character import Character
 from bullet import Bullet
-from bullet1 import Bullet1
-from shield import Shield
+from bullet import Bullet1
+from bullet import Shield
 from alien import Alien
 from alien1 import Alien1
 from meteor import Meteor
