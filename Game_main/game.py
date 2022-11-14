@@ -12,9 +12,11 @@ from text import Quit
 from text import Button
 from text import Creator
 from text import Hs
+from text import Click
+from instructions import Instructions_alien
+from instructions import Instructions_meteor
 from instructions import Instructions_move
 from instructions import Instructions_shoot
-from click import Click
 from background import Background
 from background import Background1
 from character import Character
@@ -62,7 +64,7 @@ class Game:
         self.explosion_sound = pygame.mixer.Sound('sounds/explosion_sound.mp3')
         self.hey_sound = pygame.mixer.Sound('sounds/hey_sound.mp3')
         self.hi_sound = pygame.mixer.Sound('sounds/hi_sound.mp3')
-        self.instructions_sound = pygame.mixer.Sound('sounds/instructions_sound.wav')  # not used anymore
+        self.instructions_sound = pygame.mixer.Sound('sounds/instructions_sound.wav')
         self.laser_sound = pygame.mixer.Sound('sounds/laser_sound.ogg')
         self.loss_sound = pygame.mixer.Sound('sounds/loss_sound.wav')
         self.meteor_explosion_sound = pygame.mixer.Sound('sounds/meteor_explosion_sound.ogg')
@@ -78,9 +80,11 @@ class Game:
 
         self.play_button = Button(self, "Play")
         self.play_quit = Quit(self, "Quit")
-        self.play_title = Title(self, "-Planetary Panic-")
-        self.play_instructions_move = Instructions_move(self, "Use the arrow keys to move")
-        self.play_instructions_shoot = Instructions_shoot(self, "Use the 'a', 'w', and 'd' keys to shoot")
+        self.play_title = Title(self, "Planetary Panic")
+        self.play_instructions_alien = Instructions_alien(self, "-Aliens attack from the left and right-")
+        self.play_instructions_meteor = Instructions_meteor(self, "-Meteors fall from the sky-")
+        self.play_instructions_move = Instructions_move(self, "-Use the arrow keys to move-")
+        self.play_instructions_shoot = Instructions_shoot(self, "-Use the 'a', 'w', and 'd' keys to shoot-")
         self.play_creator = Creator(self, "D-a-v-i-s     S-t-u-d-i-o-s")
         self.play_hs = Hs(self, "HIGH SCORE!")
         self.play_click = Click(self)
@@ -118,6 +122,8 @@ class Game:
                 self._check_play_button(mouse_pos)
                 self._check_quit(mouse_pos)
                 self._check_click(mouse_pos)
+                self._check_instructions_alien(mouse_pos)
+                self._check_instructions_meteor(mouse_pos)
                 self._check_instructions_move(mouse_pos)
                 self._check_instructions_shoot(mouse_pos)
 
@@ -159,6 +165,16 @@ class Game:
         click_clicked = self.play_click.rect.collidepoint(mouse_pos)
         if click_clicked:
             pygame.mixer.Sound.play(self.stop_sound)
+
+    def _check_instructions_alien(self, mouse_pos):
+        instructions_alien_clicked = self.play_instructions_alien.rect.collidepoint(mouse_pos)
+        if instructions_alien_clicked:
+            pygame.mixer.Sound.play(self.instructions_sound)
+
+    def _check_instructions_meteor(self, mouse_pos):
+        instructions_meteor_clicked = self.play_instructions_meteor.rect.collidepoint(mouse_pos)
+        if instructions_meteor_clicked:
+            pygame.mixer.Sound.play(self.instructions_sound)
 
     def _check_instructions_move(self, mouse_pos):
         instructions_move_clicked = self.play_instructions_move.rect.collidepoint(mouse_pos)
@@ -384,6 +400,8 @@ class Game:
             self.play_quit.draw_quit()
             self.play_title.draw_title()
             self.play_creator.draw_creator()
+            self.play_instructions_alien.draw_instructions_alien()
+            self.play_instructions_meteor.draw_instructions_meteor()
             self.play_instructions_move.draw_instructions_move()
             self.play_instructions_shoot.draw_instructions_shoot()
             if self.sb.stats.score > 0 and self.sb.stats.score >= self.sb.stats.high_score:
