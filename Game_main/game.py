@@ -116,6 +116,7 @@ class Game:
                 self._check_play_button(mouse_pos)
                 self._check_quit(mouse_pos)
                 self._check_click(mouse_pos)
+                self._check_instructions_move(mouse_pos)
 
     def _check_play_button(self, mouse_pos):
         pygame.mixer.Sound.play(self.click_sound)
@@ -155,6 +156,11 @@ class Game:
         click_clicked = self.play_click.rect.collidepoint(mouse_pos)
         if click_clicked:
             pygame.mixer.Sound.play(self.stop_sound)
+
+    def _check_instructions_move(self, mouse_pos):
+        instructions_move_clicked = self.play_instructions_move.rect.collidepoint(mouse_pos)
+        if instructions_move_clicked:
+            pygame.mixer.Sound.play(self.instructions_sound)
 
     def _check_keydown_events(self, event):
         if event.key == pygame.K_RIGHT:
