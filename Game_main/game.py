@@ -7,25 +7,25 @@ from pygame import mixer
 from settings import Settings
 from game_stats import GameStats
 from scoreboard import Scoreboard
-from hs import Hs
-from button import Button
-from quit import Quit
-from title import Title
+from text import Title
+from text import Quit
+from text import Button
+from text import Creator
+from text import Hs
 from instructions import Instructions_move
 from instructions import Instructions_shoot
 from click import Click
-from creator import Creator
 from background import Background
-from background1 import Background1
+from background import Background1
 from character import Character
 from bullet import Bullet
 from bullet import Bullet1
 from bullet import Shield
-from alien import Alien
-from alien1 import Alien1
-from meteor import Meteor
-from blue_planet_move_left import Blue_Planet_Move_Left
-from blue_planet_move_right import Blue_Planet_Move_Right
+from projectiles import Alien
+from projectiles import Alien1
+from projectiles import Blue_Planet_Move_Left
+from projectiles import Blue_Planet_Move_Right
+from projectiles import Meteor
 
 
 class Game:
@@ -62,7 +62,7 @@ class Game:
         self.explosion_sound = pygame.mixer.Sound('sounds/explosion_sound.mp3')
         self.hey_sound = pygame.mixer.Sound('sounds/hey_sound.mp3')
         self.hi_sound = pygame.mixer.Sound('sounds/hi_sound.mp3')
-        self.instructions_sound = pygame.mixer.Sound('sounds/instructions_sound.wav') # not used anymore
+        self.instructions_sound = pygame.mixer.Sound('sounds/instructions_sound.wav')  # not used anymore
         self.laser_sound = pygame.mixer.Sound('sounds/laser_sound.ogg')
         self.loss_sound = pygame.mixer.Sound('sounds/loss_sound.wav')
         self.meteor_explosion_sound = pygame.mixer.Sound('sounds/meteor_explosion_sound.ogg')

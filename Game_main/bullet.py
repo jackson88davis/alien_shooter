@@ -45,6 +45,7 @@ class Bullet1(Sprite):
     def draw_bullet1(self):
         pygame.draw.rect(self.screen, self.color, self.rect)
 
+
 class Shield(Sprite):
 
     def __init__(self, ai_game):
