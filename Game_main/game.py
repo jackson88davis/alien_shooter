@@ -39,7 +39,7 @@ class Game:
         self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
         self.settings.screen_width = self.screen.get_rect().width
         self.settings.screen_height = self.screen.get_rect().height
-        pygame.display.set_caption("Game")
+        pygame.display.set_caption("Planetary Panic")
 
         self.stats = GameStats(self)
         self.sb = Scoreboard(self)
@@ -406,6 +406,7 @@ class Game:
             self.play_instructions_shoot.draw_instructions_shoot()
             if self.sb.stats.score > 0 and self.sb.stats.score >= self.sb.stats.high_score:
                 self.play_hs.draw_hs()
+
 
         pygame.display.flip()
 

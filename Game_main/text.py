@@ -14,6 +14,7 @@ class Title:
 
         self.rect = pygame.Rect(0, 0, self.width, self.height)
         self.rect.midtop = self.screen_rect.midtop
+        self.rect.move_ip(0, 80)
 
         self._prep_msg(msg)
 
@@ -122,6 +123,7 @@ class Hs:
 
         self.rect = pygame.Rect(0, 0, self.width, self.height)
         self.rect.midtop = self.screen_rect.midtop
+        self.rect.move_ip(0, 80)
 
         self._prep_msg(msg)
 
