@@ -95,8 +95,8 @@ class Meteor(Sprite):
         self.rect = self.image.get_rect()
 
         self.rect.bottom = self.screen.get_rect().top
-        meteor_left_max = self.settings.screen_height - self.rect.height
-        self.rect.left = randint(0, meteor_left_max)
+        meteor_width_max = self.settings.screen_width - self.rect.width
+        self.rect.left = randint(0, meteor_width_max)
 
         self.y = float(self.rect.y)
 
