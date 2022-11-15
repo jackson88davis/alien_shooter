@@ -62,11 +62,14 @@ class Game:
         self.alien_sound = pygame.mixer.Sound('sounds/alien_sound.wav')
         self.click_sound = pygame.mixer.Sound('sounds/click_sound.ogg')
         self.confirmation_sound = pygame.mixer.Sound('sounds/confirmation_sound.ogg')
+        self.crash_sound = pygame.mixer.Sound('sounds/crash_sound.wav')
         self.explosion_sound = pygame.mixer.Sound('sounds/explosion_sound.mp3')
         self.hey_sound = pygame.mixer.Sound('sounds/hey_sound.mp3')
         self.hi_sound = pygame.mixer.Sound('sounds/hi_sound.mp3')
+        self.hurt_sound = pygame.mixer.Sound('sounds/hurt_sound.wav')
         self.instructions_sound = pygame.mixer.Sound('sounds/instructions_sound.wav')
         self.laser_sound = pygame.mixer.Sound('sounds/laser_sound.ogg')
+        self.loser_sound = pygame.mixer.Sound('sounds/loser_sound.wav')  # not used
         self.loss_sound = pygame.mixer.Sound('sounds/loss_sound.wav')
         self.meteor_explosion_sound = pygame.mixer.Sound('sounds/meteor_explosion_sound.ogg')
         self.meteor_strike_sound = pygame.mixer.Sound('sounds/meteor_strike_sound.wav')
@@ -77,7 +80,7 @@ class Game:
         self.what_sound = pygame.mixer.Sound('sounds/what_sound.mp3')
 
         pygame.mixer.music.load('sounds/music.mp3')
-        pygame.mixer.music.set_volume(0.5)
+        pygame.mixer.music.set_volume(0.2)
 
         self.play_button = Button(self, "Play")
         self.play_quit = Quit(self, "Quit")
@@ -313,6 +316,9 @@ class Game:
     def _update_aliens(self):
         self.aliens.update()
         if pygame.sprite.spritecollideany(self.character, self.aliens):
+            pygame.mixer.Sound.play(self.crash_sound)
+            sleep(.2)
+            pygame.mixer.Sound.play(self.hurt_sound)
             pygame.mixer.Sound.play(self.ouch_sound)
             sleep(.6)
             self._character_hit()
@@ -326,6 +332,9 @@ class Game:
     def _update_alien1s(self):
         self.alien1s.update()
         if pygame.sprite.spritecollideany(self.character, self.alien1s):
+            pygame.mixer.Sound.play(self.crash_sound)
+            sleep(.2)
+            pygame.mixer.Sound.play(self.hurt_sound)
             pygame.mixer.Sound.play(self.ouch_sound)
             sleep(.6)
             self._character_hit()
@@ -339,6 +348,8 @@ class Game:
     def _update_meteors(self):
         self.meteors.update()
         if pygame.sprite.spritecollideany(self.character, self.meteors):
+            pygame.mixer.Sound.play(self.hurt_sound)
+            sleep(.2)
             pygame.mixer.Sound.play(self.explosion_sound)
             sleep(.6)
             self._character_hit()
@@ -422,7 +433,6 @@ class Game:
             self.play_instructions_shoot.draw_instructions_shoot()
             if self.sb.stats.score > 0 and self.sb.stats.score >= self.sb.stats.high_score:
                 self.play_hs.draw_hs()
-
 
         pygame.display.flip()
 
