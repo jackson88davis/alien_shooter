@@ -382,6 +382,12 @@ class Game:
             pygame.mixer.Sound.play(self.what_sound)
             self.stats.game_active = False
             pygame.mouse.set_visible(True)
+        if self.stats.characters_left == 2:
+            self.character.image = self.character.image_hurt1
+        if self.stats.characters_left == 1:
+            self.character.image = self.character.image_hurt2
+        if self.stats.characters_left == 0:
+            self.character.image = self.character.image_hurt3
 
     def _update_screen(self):
         self.background1.blitme()
@@ -403,6 +409,7 @@ class Game:
         self.sb.show_score()
 
         if not self.stats.game_active:
+            self.character.image = self.character.image_regular
             self.click.blitme()
             self.play_button.draw_button()
             self.play_quit.draw_quit()
