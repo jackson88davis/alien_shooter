@@ -15,6 +15,7 @@ from text import Hs
 from text import Click
 from instructions import Instructions_alien
 from instructions import Instructions_meteor
+from instructions import Instructions_lives
 from instructions import Instructions_move
 from instructions import Instructions_shoot
 from background import Background
@@ -83,6 +84,7 @@ class Game:
         self.play_title = Title(self, "Planetary Panic")
         self.play_instructions_alien = Instructions_alien(self, "-Aliens attack from the left and right-")
         self.play_instructions_meteor = Instructions_meteor(self, "-Meteors fall from the sky-")
+        self.play_instructions_lives = Instructions_lives(self, "-You only have three lives-")
         self.play_instructions_move = Instructions_move(self, "-Use the arrow keys to move-")
         self.play_instructions_shoot = Instructions_shoot(self, "-Use the 'a', 'w', and 'd' keys to shoot-")
         self.play_creator = Creator(self, "D-a-v-i-s     S-t-u-d-i-o-s")
@@ -124,6 +126,7 @@ class Game:
                 self._check_click(mouse_pos)
                 self._check_instructions_alien(mouse_pos)
                 self._check_instructions_meteor(mouse_pos)
+                self._check_instructions_lives(mouse_pos)
                 self._check_instructions_move(mouse_pos)
                 self._check_instructions_shoot(mouse_pos)
 
@@ -174,6 +177,11 @@ class Game:
     def _check_instructions_meteor(self, mouse_pos):
         instructions_meteor_clicked = self.play_instructions_meteor.rect.collidepoint(mouse_pos)
         if instructions_meteor_clicked:
+            pygame.mixer.Sound.play(self.instructions_sound)
+
+    def _check_instructions_lives(self, mouse_pos):
+        instructions_lives_clicked = self.play_instructions_lives.rect.collidepoint(mouse_pos)
+        if instructions_lives_clicked:
             pygame.mixer.Sound.play(self.instructions_sound)
 
     def _check_instructions_move(self, mouse_pos):
@@ -402,6 +410,7 @@ class Game:
             self.play_creator.draw_creator()
             self.play_instructions_alien.draw_instructions_alien()
             self.play_instructions_meteor.draw_instructions_meteor()
+            self.play_instructions_lives.draw_instructions_lives()
             self.play_instructions_move.draw_instructions_move()
             self.play_instructions_shoot.draw_instructions_shoot()
             if self.sb.stats.score > 0 and self.sb.stats.score >= self.sb.stats.high_score:
