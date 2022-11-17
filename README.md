@@ -12,12 +12,12 @@
 </h1>
 
 <div align="center">
-  <img src="https://media.giphy.com/media/Dh5q0sShxgp13DwrvG/giphy.gif" width="600" height="200"/>
+  <img src="https://media.giphy.com/media/Dh5q0sShxgp13DwrvG/giphy.gif" width="600" height="300"/>
 </div>
 
 ### About Me :
 
-I am a game developer <img src="https://i.gifer.com/6tXM.gif" width="30"> from Tennessee.
+I am a game developer <img src="https://thumbs.gfycat.com/AngelicConcreteHypsilophodon.webp" width="30"> from Tennessee.
 
 ### Languages and Tools :
 
