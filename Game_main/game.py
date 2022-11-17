@@ -252,13 +252,6 @@ class Game:
                 self._fire_bullet1()
             if event.key == pygame.K_w:
                 self._fire_shield()
-            if event.key == pygame.K_ESCAPE:
-                pygame.mixer.Sound.play(self.quit_sound)
-                sleep(1)
-                sys.exit()
-            if event.key == pygame.K_HOME:
-                self.stats.game_active = False
-                pygame.mouse.set_visible(True)
         if self.character1.number == 1:
             if event.key == pygame.K_RIGHT:
                 self.character.moving_right = True
@@ -273,13 +266,14 @@ class Game:
                 self.character1.moving_left = True
             if event.key == pygame.K_w:
                 self._fire_shield1()
-            if event.key == pygame.K_ESCAPE:
-                pygame.mixer.Sound.play(self.quit_sound)
-                sleep(1)
-                sys.exit()
-            if event.key == pygame.K_HOME:
-                self.stats.game_active = False
-                pygame.mouse.set_visible(True)
+        if self.stats.game_active == True and event.key == pygame.K_TAB:
+            pygame.mixer.music.stop()
+            self.stats.game_active = False
+            pygame.mouse.set_visible(True)
+        if event.key == pygame.K_ESCAPE:
+            pygame.mixer.Sound.play(self.quit_sound)
+            sleep(1)
+            sys.exit()
 
     def _check_keyup_events(self, event):
         if event.key == pygame.K_RIGHT:
