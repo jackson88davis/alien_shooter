@@ -26,6 +26,7 @@ from character1 import Character1
 from bullet import Bullet
 from bullet import Bullet1
 from bullet import Shield
+from bullet import Shield1
 from projectiles import Alien
 from projectiles import Alien1
 from projectiles import Blue_Planet_Move_Left
@@ -55,6 +56,7 @@ class Game:
         self.bullets = pygame.sprite.Group()
         self.bullet1s = pygame.sprite.Group()
         self.shields = pygame.sprite.Group()
+        self.shield1s = pygame.sprite.Group()
         self.aliens = pygame.sprite.Group()
         self.alien1s = pygame.sprite.Group()
         self.meteors = pygame.sprite.Group()
@@ -108,12 +110,16 @@ class Game:
                 self._update_bullets()
                 self._update_bullet1s()
                 self._update_shields()
+                self._update_shield1s()
                 self._create_alien()
                 self._update_aliens()
+                self._update_aliens1()
                 self._create_alien1()
                 self._update_alien1s()
+                self._update_alien1s1()
                 self._create_meteor()
                 self._update_meteors()
+                self._update_meteors1()
                 self._create_blue_planet_move_left()
                 self._update_blue_planet_move_lefts()
                 self._create_blue_planet_move_right()
@@ -235,26 +241,49 @@ class Game:
             pygame.mixer.Sound.play(self.instructions_sound)
 
     def _check_keydown_events(self, event):
-        if event.key == pygame.K_RIGHT:
-            self.character.moving_right = True
-        if event.key == pygame.K_LEFT:
-            self.character.moving_left = True
-        if event.key == pygame.K_d:
-            self._fire_bullet()
-        if event.key == pygame.K_a:
-            self._fire_bullet1()
-        if event.key == pygame.K_w:
-            self._fire_shield()
-        if event.key == pygame.K_ESCAPE:
-            pygame.mixer.Sound.play(self.quit_sound)
-            sleep(1)
-            sys.exit()
+        if self.character1.number == 0:
+            if event.key == pygame.K_RIGHT:
+                self.character.moving_right = True
+            if event.key == pygame.K_LEFT:
+                self.character.moving_left = True
+            if event.key == pygame.K_d:
+                self._fire_bullet()
+            if event.key == pygame.K_a:
+                self._fire_bullet1()
+            if event.key == pygame.K_w:
+                self._fire_shield()
+            if event.key == pygame.K_ESCAPE:
+                pygame.mixer.Sound.play(self.quit_sound)
+                sleep(1)
+                sys.exit()
+        if self.character1.number == 1:
+            if event.key == pygame.K_RIGHT:
+                self.character.moving_right = True
+            if event.key == pygame.K_LEFT:
+                self.character.moving_left = True
+            if event.key == pygame.K_UP:
+                self._fire_bullet()
+                self._fire_bullet1()
+            if event.key == pygame.K_d:
+                self.character1.moving_right = True
+            if event.key == pygame.K_a:
+                self.character1.moving_left = True
+            if event.key == pygame.K_w:
+                self._fire_shield1()
+            if event.key == pygame.K_ESCAPE:
+                pygame.mixer.Sound.play(self.quit_sound)
+                sleep(1)
+                sys.exit()
 
     def _check_keyup_events(self, event):
         if event.key == pygame.K_RIGHT:
             self.character.moving_right = False
         if event.key == pygame.K_LEFT:
             self.character.moving_left = False
+        if event.key == pygame.K_d:
+            self.character1.moving_right = False
+        if event.key == pygame.K_a:
+            self.character1.moving_left = False
 
     def _fire_bullet(self):
         if len(self.bullets) < self.settings.bullets_allowed:
@@ -344,6 +373,40 @@ class Game:
             self.sb.check_high_score()
             pygame.mixer.Sound.play(self.meteor_explosion_sound)
 
+    def _fire_shield1(self):
+        if len(self.shield1s) < self.settings.shield1s_allowed:
+            new_shield1 = Shield1(self)
+            self.shield1s.add(new_shield1)
+            pygame.mixer.Sound.play(self.shield_sound)
+
+    def _update_shield1s(self):
+        self.shield1s.update()
+
+        for shield1 in self.shield1s.copy():
+            if shield1.rect.left <= 0:
+                self.shield1s.remove(shield1)
+
+        self._check_shield1s_top()
+        self._check_shield1_meteor_collisions()
+
+    def _check_shield1s_top(self):
+        for shield1 in self.shield1s.sprites():
+            if shield1.rect.top < 0:
+                self.shield1s.empty()
+
+    def _check_shield1_meteor_collisions(self):
+        collisions = pygame.sprite.groupcollide(
+            self.shield1s, self.meteors, True, True)
+        if collisions:
+            self.shield1s.empty()
+            self._create_meteor()
+            self.settings.increase_speed()
+            for meteors in collisions.values():
+                self.stats.score += self.settings.meteor_points * len(meteors)
+            self.sb.prep_score()
+            self.sb.check_high_score()
+            pygame.mixer.Sound.play(self.meteor_explosion_sound)
+
     def _create_alien(self):
         if random() < self.settings.alien_frequency:
             alien = Alien(self)
@@ -353,6 +416,17 @@ class Game:
     def _update_aliens(self):
         self.aliens.update()
         if pygame.sprite.spritecollideany(self.character, self.aliens):
+            pygame.mixer.Sound.play(self.crash_sound)
+            sleep(.2)
+            pygame.mixer.Sound.play(self.hurt_sound)
+            pygame.mixer.Sound.play(self.ouch_sound)
+            sleep(.6)
+            self._character_hit()
+            self._character1_hit()
+
+    def _update_aliens1(self):
+        self.aliens.update()
+        if pygame.sprite.spritecollideany(self.character1, self.aliens):
             pygame.mixer.Sound.play(self.crash_sound)
             sleep(.2)
             pygame.mixer.Sound.play(self.hurt_sound)
@@ -378,6 +452,17 @@ class Game:
             self._character_hit()
             self._character1_hit()
 
+    def _update_alien1s1(self):
+        self.alien1s.update()
+        if pygame.sprite.spritecollideany(self.character1, self.alien1s):
+            pygame.mixer.Sound.play(self.crash_sound)
+            sleep(.2)
+            pygame.mixer.Sound.play(self.hurt_sound)
+            pygame.mixer.Sound.play(self.ouch_sound)
+            sleep(.6)
+            self._character_hit()
+            self._character1_hit()
+
     def _create_meteor(self):
         if random() < self.settings.meteor_frequency:
             meteor = Meteor(self)
@@ -387,6 +472,16 @@ class Game:
     def _update_meteors(self):
         self.meteors.update()
         if pygame.sprite.spritecollideany(self.character, self.meteors):
+            pygame.mixer.Sound.play(self.hurt_sound)
+            sleep(.2)
+            pygame.mixer.Sound.play(self.explosion_sound)
+            sleep(.6)
+            self._character_hit()
+            self._character1_hit()
+
+    def _update_meteors1(self):
+        self.meteors.update()
+        if pygame.sprite.spritecollideany(self.character1, self.meteors):
             pygame.mixer.Sound.play(self.hurt_sound)
             sleep(.2)
             pygame.mixer.Sound.play(self.explosion_sound)
@@ -420,6 +515,7 @@ class Game:
             self.bullets.empty()
             self.bullet1s.empty()
             self.shields.empty()
+            self.shield1s.empty()
             self.aliens.empty()
             self.alien1s.empty()
             self.meteors.empty()
@@ -448,6 +544,7 @@ class Game:
             self.bullets.empty()
             self.bullet1s.empty()
             self.shields.empty()
+            self.shield1s.empty()
             self.aliens.empty()
             self.alien1s.empty()
             self.meteors.empty()
@@ -480,6 +577,8 @@ class Game:
             bullet1.draw_bullet1()
         for shield in self.shields.sprites():
             shield.draw_shield()
+        for shield1 in self.shield1s.sprites():
+            shield1.draw_shield1()
 
         self.aliens.draw(self.screen)
         self.alien1s.draw(self.screen)

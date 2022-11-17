@@ -2,7 +2,6 @@ import pygame.font
 from pygame.sprite import Group
 
 from character import Character
-from character1 import Character1
 from dead import Dead
 
 

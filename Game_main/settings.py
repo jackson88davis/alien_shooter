@@ -28,6 +28,12 @@ class Settings:
         self.shield_color = (194, 23, 232)
         self.shields_allowed = 1
 
+        self.shield1_speed = 4
+        self.shield1_width = 95
+        self.shield1_height = 5
+        self.shield1_color = (194, 23, 232)
+        self.shield1s_allowed = 1
+
         self.alien_frequency = .0015
         self.alien_speed = 1.5
 
