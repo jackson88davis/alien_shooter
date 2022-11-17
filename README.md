@@ -12,7 +12,19 @@
 </h1>
 
 <div align="center">
-  <img src="https://media.giphy.com/media/dWesBcTLavkZuG35MI/giphy.gif" width="600" height="200"/>
+  <img src="https://media.giphy.com/media/Dh5q0sShxgp13DwrvG/giphy.gif" width="600" height="200"/>
 </div>
 
+### About Me :
 
+I am a game developer <img src="https://i.gifer.com/6tXM.gif" width="30"> from Tennessee.
+
+### Languages and Tools :
+
+<div>
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Python.svg/1200px-Python.svg.png" title="Python" alt="Python" width="40" height="40"/> <img src="https://camo.githubusercontent.com/1971c0a4f776fb5351c765c37e59630c83cabd52/68747470733a2f2f7777772e707967616d652e6f72672f696d616765732f6c6f676f2e706e67" title="Pygame" alt="Pygame" width="100" height="40"/>
+</div>
+
+### My Stats :
+
+[![GitHub Streak](http://github-readme-streak-stats.herokuapp.com?user=jackson88davis&theme=dark&background=000000)](https://git.io/streak-stats)

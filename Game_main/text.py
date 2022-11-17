@@ -119,10 +119,10 @@ class Creator:
         self.screen = ai_game.screen
         self.screen_rect = self.screen.get_rect()
 
-        self.width, self.height = 1300, 80
-        self.creator_color = (224, 89, 57)
-        self.text_color = (255, 235, 205)
-        self.font = pygame.font.SysFont(None, 108, bold=True, italic=True)
+        self.width, self.height = 1300, 130
+        self.creator_color = (96, 0, 141)
+        self.text_color = (0, 0, 0)
+        self.font = pygame.font.SysFont(None, 92, bold=True, italic=True)
 
         self.rect = pygame.Rect(0, 0, self.width, self.height)
         self.rect.midbottom = self.screen_rect.midbottom
@@ -179,6 +179,23 @@ class Click:
         self.rect = self.image.get_rect()
 
         self.rect.topleft = self.screen_rect.topleft
+
+    def blitme(self):
+        self.screen.blit(self.image, self.rect)
+
+
+class Logo:
+
+    def __init__(self, ai_game):
+        self.screen = ai_game.screen
+        self.screen_rect = ai_game.screen.get_rect()
+
+        self.image = pygame.image.load('images/ExtinctionGamesLogo.png')
+        self.image = pygame.transform.smoothscale(self.image, (130, 130))
+        self.rect = self.image.get_rect()
+        self.rect.move_ip(730, 0)
+
+        self.rect.bottom = self.screen_rect.bottom
 
     def blitme(self):
         self.screen.blit(self.image, self.rect)

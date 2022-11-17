@@ -14,6 +14,7 @@ from text import Button1
 from text import Creator
 from text import Hs
 from text import Click
+from text import Logo
 from instructions import Instructions_alien
 from instructions import Instructions_meteor
 from instructions import Instructions_lives
@@ -51,6 +52,7 @@ class Game:
         self.background = Background(self)
         self.background1 = Background1(self)
         self.click = Click(self)
+        self.logo = Logo(self)
         self.character = Character(self)
         self.character1 = Character1(self)
         self.bullets = pygame.sprite.Group()
@@ -96,9 +98,10 @@ class Game:
         self.play_instructions_lives = Instructions_lives(self, "-You only have three lives-")
         self.play_instructions_move = Instructions_move(self, "-Use the arrow keys to move-")
         self.play_instructions_shoot = Instructions_shoot(self, "-Use the 'a', 'w', and 'd' keys to shoot-")
-        self.play_creator = Creator(self, "D-a-v-i-s     S-t-u-d-i-o-s")
+        self.play_creator = Creator(self, "E-X-T-I-N-C-T-I-O-N       G-A-M-E-S")
         self.play_hs = Hs(self, "HIGH SCORE!")
         self.play_click = Click(self)
+        self.play_logo = Logo(self)
 
     def run_game(self):
         while True:
@@ -139,6 +142,7 @@ class Game:
                 self._check_play_button1(mouse_pos)
                 self._check_quit(mouse_pos)
                 self._check_click(mouse_pos)
+                self._check_logo(mouse_pos)
                 self._check_instructions_alien(mouse_pos)
                 self._check_instructions_meteor(mouse_pos)
                 self._check_instructions_lives(mouse_pos)
@@ -213,6 +217,11 @@ class Game:
     def _check_click(self, mouse_pos):
         click_clicked = self.play_click.rect.collidepoint(mouse_pos)
         if click_clicked:
+            pygame.mixer.Sound.play(self.stop_sound)
+
+    def _check_logo(self, mouse_pos):
+        logo_clicked = self.play_logo.rect.collidepoint(mouse_pos)
+        if logo_clicked:
             pygame.mixer.Sound.play(self.stop_sound)
 
     def _check_instructions_alien(self, mouse_pos):
@@ -599,6 +608,7 @@ class Game:
             self.play_quit.draw_quit()
             self.play_title.draw_title()
             self.play_creator.draw_creator()
+            self.logo.blitme()
             self.play_instructions_alien.draw_instructions_alien()
             self.play_instructions_meteor.draw_instructions_meteor()
             self.play_instructions_lives.draw_instructions_lives()
