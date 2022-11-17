@@ -1,5 +1,5 @@
 <div id="header" align="center">
-  <img src="C:\Users\m251290\Documents\GitHub\alien_shooter\Game_main\images\ExtinctionGamesLogo.png" alt="Error" title="Extinction Games" height="200"/>
+  <img src="https://i.pinimg.com/564x/79/62/10/7962105e37d8683ed5b9fd826af96539.jpg" alt="Error" title="Extinction Games" height="200"/>
 </div>
 
 <div align="center">
