@@ -41,7 +41,8 @@ class Quit:
         self.font = pygame.font.SysFont(None, 48, bold=True)
 
         self.rect = pygame.Rect(0, 0, self.width, self.height)
-        self.rect.midleft = self.screen_rect.midleft
+        self.rect.center = self.screen_rect.center
+        self.rect.move_ip(0, 180)
 
         self._prep_msg(msg)
 
@@ -68,7 +69,8 @@ class Button:
         self.font = pygame.font.SysFont(None, 48, bold=True)
 
         self.rect = pygame.Rect(0, 0, self.width, self.height)
-        self.rect.midright = self.screen_rect.midright
+        self.rect.center = self.screen_rect.center
+        self.rect.move_ip(-300, 0)
 
         self._prep_msg(msg)
 
@@ -80,6 +82,34 @@ class Button:
 
     def draw_button(self):
         self.screen.fill(self.button_color, self.rect)
+        self.screen.blit(self.msg_image, self.msg_image_rect)
+
+
+class Button1:
+
+    def __init__(self, ai_game, msg):
+        self.screen = ai_game.screen
+        self.screen_rect = self.screen.get_rect()
+
+        self.width, self.height = 200, 50
+        self.button1_color = (241, 109, 63)
+        self.text_color = (255, 235, 205)
+        self.font = pygame.font.SysFont(None, 48, bold=True)
+
+        self.rect = pygame.Rect(0, 0, self.width, self.height)
+        self.rect.center = self.screen_rect.center
+        self.rect.move_ip(300, 0)
+
+        self._prep_msg(msg)
+
+    def _prep_msg(self, msg):
+        self.msg_image = self.font.render(msg, True, self.text_color,
+                                          self.button1_color)
+        self.msg_image_rect = self.msg_image.get_rect()
+        self.msg_image_rect.center = self.rect.center
+
+    def draw_button1(self):
+        self.screen.fill(self.button1_color, self.rect)
         self.screen.blit(self.msg_image, self.msg_image_rect)
 
 

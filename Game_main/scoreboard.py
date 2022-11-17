@@ -2,6 +2,7 @@ import pygame.font
 from pygame.sprite import Group
 
 from character import Character
+from character1 import Character1
 
 
 class Scoreboard:
@@ -19,6 +20,7 @@ class Scoreboard:
         self.prep_score()
         self.prep_high_score()
         self.prep_characters()
+        self.prep_character1s()
 
     def prep_score(self):
         rounded_score = round(self.stats.score, -1)
@@ -44,6 +46,7 @@ class Scoreboard:
         self.screen.blit(self.score_image, self.score_rect)
         self.screen.blit(self.high_score_image, self.high_score_rect)
         self.characters.draw(self.screen)
+        self.character1s.draw(self.screen)
 
     def check_high_score(self):
         if self.stats.score > self.stats.high_score:
@@ -57,3 +60,11 @@ class Scoreboard:
             character.rect.x = 10 + character_number * character.rect.width
             character.rect.y = 10
             self.characters.add(character)
+
+    def prep_character1s(self):
+        self.character1s = Group()
+        for character1_number in range(self.stats.character1s_left):
+            character1 = Character1(self.ai_game)
+            character1.rect.x = 10 + character1_number * character1.rect.width
+            character1.rect.y = 10
+            self.character1s.add(character1)

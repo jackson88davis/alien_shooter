@@ -7,6 +7,9 @@ class Settings:
         self.character_speed = 4
         self.character_limit = 3
 
+        self.character1_speed = 4
+        self.character1_limit = 3
+
         self.bullet_speed = 2
         self.bullet_width = 15
         self.bullet_height = 5

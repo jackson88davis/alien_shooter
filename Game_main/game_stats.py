@@ -10,4 +10,5 @@ class GameStats:
 
     def reset_stats(self):
         self.characters_left = self.settings.character_limit
+        self.character1s_left = self.settings.character1_limit
         self.score = 0

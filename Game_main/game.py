@@ -10,6 +10,7 @@ from scoreboard import Scoreboard
 from text import Title
 from text import Quit
 from text import Button
+from text import Button1
 from text import Creator
 from text import Hs
 from text import Click
@@ -21,6 +22,7 @@ from instructions import Instructions_shoot
 from background import Background
 from background import Background1
 from character import Character
+from character1 import Character1
 from bullet import Bullet
 from bullet import Bullet1
 from bullet import Shield
@@ -49,6 +51,7 @@ class Game:
         self.background1 = Background1(self)
         self.click = Click(self)
         self.character = Character(self)
+        self.character1 = Character1(self)
         self.bullets = pygame.sprite.Group()
         self.bullet1s = pygame.sprite.Group()
         self.shields = pygame.sprite.Group()
@@ -82,7 +85,8 @@ class Game:
         pygame.mixer.music.load('sounds/music.mp3')
         pygame.mixer.music.set_volume(0.2)
 
-        self.play_button = Button(self, "Play")
+        self.play_button = Button(self, "1 Player")
+        self.play_button1 = Button1(self, "2 Player")
         self.play_quit = Quit(self, "Quit")
         self.play_title = Title(self, "Planetary Panic")
         self.play_instructions_alien = Instructions_alien(self, "-Aliens attack from the left and right-")
@@ -100,6 +104,7 @@ class Game:
 
             if self.stats.game_active:
                 self.character.update()
+                self.character1.update()
                 self._update_bullets()
                 self._update_bullet1s()
                 self._update_shields()
@@ -125,6 +130,7 @@ class Game:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_pos = pygame.mouse.get_pos()
                 self._check_play_button(mouse_pos)
+                self._check_play_button1(mouse_pos)
                 self._check_quit(mouse_pos)
                 self._check_click(mouse_pos)
                 self._check_instructions_alien(mouse_pos)
@@ -144,6 +150,7 @@ class Game:
             self.stats.game_active = True
             self.sb.prep_score()
             self.sb.prep_characters()
+            self.sb.prep_character1s()
 
             self.aliens.empty()
             self.alien1s.empty()
@@ -157,6 +164,36 @@ class Game:
             self._create_blue_planet_move_left()
             self._create_blue_planet_move_right()
             self.character.midbottom_character()
+            self.character1.midbottom_character1()
+
+            pygame.mouse.set_visible(False)
+
+    def _check_play_button1(self, mouse_pos):
+        pygame.mixer.Sound.play(self.click_sound)
+        button1_clicked = self.play_button1.rect.collidepoint(mouse_pos)
+        if button1_clicked and not self.stats.game_active:
+            pygame.mixer.Sound.play(self.confirmation_sound)
+            pygame.mixer.music.play(-1)
+            self.settings.initialize_dynamic_settings()
+            self.stats.reset_stats()
+            self.stats.game_active = True
+            self.sb.prep_score()
+            self.sb.prep_characters()
+            self.sb.prep_character1s()
+
+            self.aliens.empty()
+            self.alien1s.empty()
+            self.meteors.empty()
+            self.blue_planet_move_lefts.empty()
+            self.blue_planet_move_rights.empty()
+
+            self._create_alien()
+            self._create_alien1()
+            self._create_meteor()
+            self._create_blue_planet_move_left()
+            self._create_blue_planet_move_right()
+            self.character.midbottom_character()
+            self.character1.midbottom_character1()
 
             pygame.mouse.set_visible(False)
 
@@ -322,6 +359,7 @@ class Game:
             pygame.mixer.Sound.play(self.ouch_sound)
             sleep(.6)
             self._character_hit()
+            self._character1_hit()
 
     def _create_alien1(self):
         if random() < self.settings.alien1_frequency:
@@ -338,6 +376,7 @@ class Game:
             pygame.mixer.Sound.play(self.ouch_sound)
             sleep(.6)
             self._character_hit()
+            self._character1_hit()
 
     def _create_meteor(self):
         if random() < self.settings.meteor_frequency:
@@ -353,6 +392,7 @@ class Game:
             pygame.mixer.Sound.play(self.explosion_sound)
             sleep(.6)
             self._character_hit()
+            self._character1_hit()
 
     def _create_blue_planet_move_left(self):
         if random() < self.settings.blue_planet_move_left_frequency:
@@ -400,10 +440,39 @@ class Game:
         if self.stats.characters_left == 0:
             self.character.image = self.character.image_hurt3
 
+    def _character1_hit(self):
+        if self.stats.character1s_left > 0:
+            self.stats.character1s_left -= 1
+            self.sb.prep_character1s()
+
+            self.bullets.empty()
+            self.bullet1s.empty()
+            self.shields.empty()
+            self.aliens.empty()
+            self.alien1s.empty()
+            self.meteors.empty()
+            self.blue_planet_move_lefts.empty()
+            self.blue_planet_move_rights.empty()
+
+            self.character1.midbottom_character1()
+        else:
+            pygame.mixer.music.stop()
+            pygame.mixer.Sound.play(self.loss_sound)
+            pygame.mixer.Sound.play(self.what_sound)
+            self.stats.game_active = False
+            pygame.mouse.set_visible(True)
+        if self.stats.character1s_left == 2:
+            self.character1.image = self.character1.image_hurt1
+        if self.stats.character1s_left == 1:
+            self.character1.image = self.character1.image_hurt2
+        if self.stats.character1s_left == 0:
+            self.character1.image = self.character1.image_hurt3
+
     def _update_screen(self):
         self.background1.blitme()
         self.background.blitme()
         self.character.blitme()
+        self.character1.blitme()
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
         for bullet1 in self.bullet1s.sprites():
@@ -421,8 +490,10 @@ class Game:
 
         if not self.stats.game_active:
             self.character.image = self.character.image_regular
+            self.character1.image = self.character1.image_regular
             self.click.blitme()
             self.play_button.draw_button()
+            self.play_button1.draw_button1()
             self.play_quit.draw_quit()
             self.play_title.draw_title()
             self.play_creator.draw_creator()
