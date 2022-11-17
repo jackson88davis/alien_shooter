@@ -28,3 +28,7 @@ I am a game developer <img src="https://thumbs.gfycat.com/AngelicConcreteHypsilo
 ### My Stats :
 
 [![GitHub Streak](http://github-readme-streak-stats.herokuapp.com?user=jackson88davis&theme=dark&background=000000)](https://git.io/streak-stats)
+
+![](https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=jackson88davis&theme=github_dark) 
+
+![](https://github-profile-summary-cards.vercel.app/api/cards/productive-time?username=jackson88davis&theme=github_dark)
