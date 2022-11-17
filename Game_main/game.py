@@ -256,6 +256,9 @@ class Game:
                 pygame.mixer.Sound.play(self.quit_sound)
                 sleep(1)
                 sys.exit()
+            if event.key == pygame.K_HOME:
+                self.stats.game_active = False
+                pygame.mouse.set_visible(True)
         if self.character1.number == 1:
             if event.key == pygame.K_RIGHT:
                 self.character.moving_right = True
@@ -274,6 +277,9 @@ class Game:
                 pygame.mixer.Sound.play(self.quit_sound)
                 sleep(1)
                 sys.exit()
+            if event.key == pygame.K_HOME:
+                self.stats.game_active = False
+                pygame.mouse.set_visible(True)
 
     def _check_keyup_events(self, event):
         if event.key == pygame.K_RIGHT:
