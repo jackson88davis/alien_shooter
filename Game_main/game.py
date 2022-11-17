@@ -150,7 +150,6 @@ class Game:
             self.stats.game_active = True
             self.sb.prep_score()
             self.sb.prep_characters()
-            self.sb.prep_character1s()
 
             self.aliens.empty()
             self.alien1s.empty()
@@ -164,7 +163,7 @@ class Game:
             self._create_blue_planet_move_left()
             self._create_blue_planet_move_right()
             self.character.midbottom_character()
-            self.character1.midbottom_character1()
+            self.character1.number = 0
 
             pygame.mouse.set_visible(False)
 
@@ -194,6 +193,7 @@ class Game:
             self._create_blue_planet_move_right()
             self.character.midbottom_character()
             self.character1.midbottom_character1()
+            self.character1.number = 1
 
             pygame.mouse.set_visible(False)
 
@@ -441,8 +441,8 @@ class Game:
             self.character.image = self.character.image_hurt3
 
     def _character1_hit(self):
-        if self.stats.character1s_left > 0:
-            self.stats.character1s_left -= 1
+        if self.stats.deads_left > 0:
+            self.stats.deads_left -= 1
             self.sb.prep_character1s()
 
             self.bullets.empty()
@@ -461,18 +461,19 @@ class Game:
             pygame.mixer.Sound.play(self.what_sound)
             self.stats.game_active = False
             pygame.mouse.set_visible(True)
-        if self.stats.character1s_left == 2:
+        if self.stats.deads_left == 2:
             self.character1.image = self.character1.image_hurt1
-        if self.stats.character1s_left == 1:
+        if self.stats.deads_left == 1:
             self.character1.image = self.character1.image_hurt2
-        if self.stats.character1s_left == 0:
+        if self.stats.deads_left == 0:
             self.character1.image = self.character1.image_hurt3
 
     def _update_screen(self):
         self.background1.blitme()
         self.background.blitme()
         self.character.blitme()
-        self.character1.blitme()
+        if self.character1.number == 1:
+            self.character1.blitme()
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
         for bullet1 in self.bullet1s.sprites():
@@ -487,6 +488,8 @@ class Game:
         self.blue_planet_move_rights.draw(self.screen)
 
         self.sb.show_score()
+        if self.character1.number == 1:
+            self.sb.show_score1()
 
         if not self.stats.game_active:
             self.character.image = self.character.image_regular

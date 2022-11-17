@@ -3,6 +3,7 @@ from pygame.sprite import Group
 
 from character import Character
 from character1 import Character1
+from dead import Dead
 
 
 class Scoreboard:
@@ -46,7 +47,11 @@ class Scoreboard:
         self.screen.blit(self.score_image, self.score_rect)
         self.screen.blit(self.high_score_image, self.high_score_rect)
         self.characters.draw(self.screen)
-        self.character1s.draw(self.screen)
+
+    def show_score1(self):
+        self.screen.blit(self.score_image, self.score_rect)
+        self.screen.blit(self.high_score_image, self.high_score_rect)
+        self.deads.draw(self.screen)
 
     def check_high_score(self):
         if self.stats.score > self.stats.high_score:
@@ -62,9 +67,9 @@ class Scoreboard:
             self.characters.add(character)
 
     def prep_character1s(self):
-        self.character1s = Group()
-        for character1_number in range(self.stats.character1s_left):
-            character1 = Character1(self.ai_game)
-            character1.rect.x = 10 + character1_number * character1.rect.width
-            character1.rect.y = 10
-            self.character1s.add(character1)
+        self.deads = Group()
+        for dead_number in range(self.stats.deads_left):
+            dead = Dead(self.ai_game)
+            dead.rect.x = 10 + dead_number * dead.rect.width
+            dead.rect.y = 10
+            self.deads.add(dead)
