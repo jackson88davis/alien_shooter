@@ -28,15 +28,61 @@ I am a game developer <img src="https://thumbs.gfycat.com/AngelicConcreteHypsilo
 ### Current Projects :
 <!-- Makes a bullet point list -->
 * Planetary Panic-2D alien shooter game
+<div align="center">
+Aliens and meteors will constantly attack increasing in speed after every strike. The player can shoot bullets left and right to kill the aliens or shoot and shield up to explode the meteor. The player has three lives and the goal is to get the highest score possible. Has both one and two player options.
+</div>
+
 <img src="https://i.pinimg.com/564x/95/ec/96/95ec962a64bf9202728cdf33afc6a922.jpg" width="600" height="300"/>
 <img src="https://i.pinimg.com/564x/b2/ca/04/b2ca04f8f11ac7266c967506eaeb62e1.jpg" width="600" height="300"/>
 <img src="https://i.pinimg.com/564x/ed/47/27/ed4727e4cec762035de19453d083e3d1.jpg" width="600" height="300"/>
 <img src="https://i.pinimg.com/564x/95/aa/81/95aa8148c6c740e4756200f49652e3cb.jpg" width="600" height="300"/>
 <img src="https://i.pinimg.com/564x/49/94/9b/49949b1b5bda7abda93aa2d88dc36f7d.jpg" width="600" height="300"/>
 
+### Game Features
+
+- Increasing difficulty
+- 3 lives per game and damage shown on character with graphics
+- Bullets and shields
+- Score board to keep track of your points
+- High score board to show how close you are to achieving the high score
+- Fun sounds for:
+  - button clicks
+  - mouse events
+  - sprite noises
+  - music
+- Multiplayer options
+- Fun gameplay :)
+
+### Controls
+
+| One Player         | Button           |
+|--------------------|------------------|
+| Move left          | <kbd>left</kbd>  |
+| Move right         | <kbd>right</kbd> |
+| Fire bullets left  | <kbd>A</kbd>     |
+| Fire bullets right | <kbd>D</kbd>     |
+| Fire shield up     | <kbd>W</kbd>     |
+| Main menu          | <kbd>TAB</kbd>   |
+| Quit game          | <kbd>Esc</kbd>   |
+
+
+| Two Player                           | Button           |
+|--------------------------------------|------------------|
+| Player 1 move left                   | <kbd>left</kbd>  |
+| Player 1 move right                  | <kbd>right</kbd> |
+| Player 1 fire bullets left and right | <kbd>up</kbd>    |
+| Player 2 move left                   | <kbd>A</kbd>     |
+| Player 2 move right                  | <kbd>D</kbd>     |
+| Player 2 fire shield up              | <kbd>W</kbd>     |
+| Main menu                            | <kbd>TAB</kbd>   |
+| Quit game                            | <kbd>Esc</kbd>   |
+
 ### Completed Projects :
 <!-- Makes a bullet point list -->
-* Space Invaders clone
+* Space Invaders clone https://github.com/jackson88davis/alien_invasion
+<div align="center">
+A clone of the classic game Space Invaders with some new and improved graphics.
+</div>
 <img src="https://i.pinimg.com/564x/0b/77/fd/0b77fd0754cb84f2520160e25811bb4b.jpg" width="600" height="300"/>
 <img src="https://i.pinimg.com/564x/78/5d/1e/785d1e9ac314f11b442d358a0933e02a.jpg" width="600" height="300"/>
 
