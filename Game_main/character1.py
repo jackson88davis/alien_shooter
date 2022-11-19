@@ -40,6 +40,7 @@ class Character1(Sprite):
 
     def midbottom_character1(self):
         self.rect.center = self.screen_rect.center
+        self.rect.move_ip(0, 100)
 
         self.x = float(self.rect.x)
 

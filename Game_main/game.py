@@ -28,6 +28,7 @@ from bullet import Bullet
 from bullet import Bullet1
 from bullet import Shield
 from bullet import Shield1
+from civilians import Civilian_orange
 from projectiles import Evil_alien
 from projectiles import Alien
 from projectiles import Alien1
@@ -60,6 +61,7 @@ class Game:
         self.bullet1s = pygame.sprite.Group()
         self.shields = pygame.sprite.Group()
         self.shield1s = pygame.sprite.Group()
+        self.civilian_oranges = pygame.sprite.Group()
         self.evil_aliens = pygame.sprite.Group()
         self.aliens = pygame.sprite.Group()
         self.alien1s = pygame.sprite.Group()
@@ -74,6 +76,7 @@ class Game:
         self.crash_sound = pygame.mixer.Sound('sounds/crash_sound.wav')
         self.explosion_sound = pygame.mixer.Sound('sounds/explosion_sound.mp3')
         self.giant_sound = pygame.mixer.Sound('sounds/giant_sound.wav')
+        self.giant_hurt_sound = pygame.mixer.Sound('sounds/giant_hurt_sound.wav')
         self.hey_sound = pygame.mixer.Sound('sounds/hey_sound.mp3')
         self.hi_sound = pygame.mixer.Sound('sounds/hi_sound.mp3')
         self.hurt_sound = pygame.mixer.Sound('sounds/hurt_sound.wav')
@@ -116,6 +119,8 @@ class Game:
                 self._update_bullet1s()
                 self._update_shields()
                 self._update_shield1s()
+                self._create_civilian_orange()
+                self._update_civilian_oranges()
                 self._create_evil_alien()
                 self._update_evil_aliens()
                 self._create_alien()
@@ -162,6 +167,7 @@ class Game:
             self.sb.prep_score()
             self.sb.prep_characters()
 
+            self.civilian_oranges.empty()
             self.evil_aliens.empty()
             self.aliens.empty()
             self.alien1s.empty()
@@ -169,6 +175,7 @@ class Game:
             self.blue_planet_move_lefts.empty()
             self.blue_planet_move_rights.empty()
 
+            self._create_civilian_orange()
             self._create_evil_alien()
             self._create_alien()
             self._create_alien1()
@@ -193,6 +200,7 @@ class Game:
             self.sb.prep_characters()
             self.sb.prep_character1s()
 
+            self.civilian_oranges.empty()
             self.evil_aliens.empty()
             self.aliens.empty()
             self.alien1s.empty()
@@ -200,6 +208,7 @@ class Game:
             self.blue_planet_move_lefts.empty()
             self.blue_planet_move_rights.empty()
 
+            self._create_civilian_orange()
             self._create_evil_alien()
             self._create_alien()
             self._create_alien1()
@@ -339,8 +348,21 @@ class Game:
             if bullet1.rect.left <= 0:
                 self.bullet1s.remove(bullet1)
 
+        self._check_bullet1_civilian_orange_collisions()
         self._check_bullet1_evil_alien_collisions()
         self._check_bullet1_alien1_collisions()
+
+    def _check_bullet1_civilian_orange_collisions(self):
+        collisions = pygame.sprite.groupcollide(
+            self.bullet1s, self.civilian_oranges, True, True)
+        if collisions:
+            self.bullet1s.empty()
+            self._create_civilian_orange()
+            self.settings.increase_speed()
+            for civilian_oranges in collisions.values():
+                self.stats.score += self.settings.alien1_points * len(civilian_oranges)
+            self.sb.prep_score()
+            self.sb.check_high_score()
 
     def _check_bullet1_evil_alien_collisions(self):
         collisions = pygame.sprite.groupcollide(
@@ -434,6 +456,15 @@ class Game:
             self.sb.check_high_score()
             pygame.mixer.Sound.play(self.meteor_explosion_sound)
 
+    def _create_civilian_orange(self):
+        if random() < self.settings.civilian_frequency:
+            civilian_orange = Civilian_orange(self)
+            self.civilian_oranges.add(civilian_orange)
+            pygame.mixer.Sound.play(self.giant_sound)
+
+    def _update_civilian_oranges(self):
+        self.civilian_oranges.update()
+
     def _create_evil_alien(self):
         if random() < self.settings.evil_alien_frequency:
             evil_alien = Evil_alien(self)
@@ -443,10 +474,9 @@ class Game:
     def _update_evil_aliens(self):
         self.evil_aliens.update()
         if pygame.sprite.spritecollideany(self.character, self.evil_aliens):
-            pygame.mixer.Sound.play(self.crash_sound)
+            pygame.mixer.Sound.play(self.giant_hurt_sound)
             sleep(.2)
             pygame.mixer.Sound.play(self.hurt_sound)
-            pygame.mixer.Sound.play(self.ouch_sound)
             sleep(.6)
             self._character_hit()
             self._character1_hit()
@@ -528,6 +558,7 @@ class Game:
             self.bullet1s.empty()
             self.shields.empty()
             self.shield1s.empty()
+            self.civilian_oranges.empty()
             self.evil_aliens.empty()
             self.aliens.empty()
             self.alien1s.empty()
@@ -558,6 +589,7 @@ class Game:
             self.bullet1s.empty()
             self.shields.empty()
             self.shield1s.empty()
+            self.civilian_oranges.empty()
             self.evil_aliens.empty()
             self.aliens.empty()
             self.alien1s.empty()
@@ -594,6 +626,7 @@ class Game:
         for shield1 in self.shield1s.sprites():
             shield1.draw_shield1()
 
+        self.civilian_oranges.draw(self.screen)
         self.evil_aliens.draw(self.screen)
         self.aliens.draw(self.screen)
         self.alien1s.draw(self.screen)

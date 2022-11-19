@@ -34,8 +34,11 @@ class Settings:
         self.shield1_color = (194, 23, 232)
         self.shield1s_allowed = 1
 
+        self.civilian_frequency = .001
+        self.civilian_speed = 1
+
         self.evil_alien_frequency = .0001
-        self.evil_alien_speed = .2
+        self.evil_alien_speed = .3
 
         self.alien_frequency = .0015
         self.alien_speed = .5
@@ -73,7 +76,6 @@ class Settings:
     def increase_speed(self):
         self.bullet_speed *= self.speedup_scale
         self.bullet1_speed *= self.speedup_scale
-        self.meteor_speed *= self.speedup_scale
         self.alien_speed *= self.speedup_scale
         self.alien1_speed *= self.speedup_scale
 
