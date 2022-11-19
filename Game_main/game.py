@@ -29,6 +29,11 @@ from bullet import Bullet1
 from bullet import Shield
 from bullet import Shield1
 from civilians import Civilian_orange
+from civilians import Civilian_purple
+from civilians import Civilian_turquoise
+from civilians import Civilian_pink
+from civilians import Civilian_red
+from civilians import Civilian_yellow
 from projectiles import Evil_alien
 from projectiles import Alien
 from projectiles import Alien1
@@ -62,6 +67,11 @@ class Game:
         self.shields = pygame.sprite.Group()
         self.shield1s = pygame.sprite.Group()
         self.civilian_oranges = pygame.sprite.Group()
+        self.civilian_purples = pygame.sprite.Group()
+        self.civilian_turquoises = pygame.sprite.Group()
+        self.civilian_pinks = pygame.sprite.Group()
+        self.civilian_reds = pygame.sprite.Group()
+        self.civilian_yellows = pygame.sprite.Group()
         self.evil_aliens = pygame.sprite.Group()
         self.aliens = pygame.sprite.Group()
         self.alien1s = pygame.sprite.Group()
@@ -121,6 +131,16 @@ class Game:
                 self._update_shield1s()
                 self._create_civilian_orange()
                 self._update_civilian_oranges()
+                self._create_civilian_purple()
+                self._update_civilian_purples()
+                self._create_civilian_turquoise()
+                self._update_civilian_turquoises()
+                self._create_civilian_pink()
+                self._update_civilian_pinks()
+                self._create_civilian_red()
+                self._update_civilian_reds()
+                self._create_civilian_yellow()
+                self._update_civilian_yellows()
                 self._create_evil_alien()
                 self._update_evil_aliens()
                 self._create_alien()
@@ -168,6 +188,11 @@ class Game:
             self.sb.prep_characters()
 
             self.civilian_oranges.empty()
+            self.civilian_purples.empty()
+            self.civilian_turquoises.empty()
+            self.civilian_pinks.empty()
+            self.civilian_reds.empty()
+            self.civilian_yellows.empty()
             self.evil_aliens.empty()
             self.aliens.empty()
             self.alien1s.empty()
@@ -176,6 +201,11 @@ class Game:
             self.blue_planet_move_rights.empty()
 
             self._create_civilian_orange()
+            self._create_civilian_purple()
+            self._create_civilian_turquoise()
+            self._create_civilian_pink()
+            self._create_civilian_red()
+            self._create_civilian_yellow()
             self._create_evil_alien()
             self._create_alien()
             self._create_alien1()
@@ -201,6 +231,11 @@ class Game:
             self.sb.prep_character1s()
 
             self.civilian_oranges.empty()
+            self.civilian_purples.empty()
+            self.civilian_turquoises.empty()
+            self.civilian_pinks.empty()
+            self.civilian_reds.empty()
+            self.civilian_yellows.empty()
             self.evil_aliens.empty()
             self.aliens.empty()
             self.alien1s.empty()
@@ -209,6 +244,11 @@ class Game:
             self.blue_planet_move_rights.empty()
 
             self._create_civilian_orange()
+            self._create_civilian_purple()
+            self._create_civilian_turquoise()
+            self._create_civilian_pink()
+            self._create_civilian_red()
+            self._create_civilian_yellow()
             self._create_evil_alien()
             self._create_alien()
             self._create_alien1()
@@ -321,6 +361,12 @@ class Game:
             if bullet.rect.left >= self.screen.get_rect().right:
                 self.bullets.remove(bullet)
 
+        self._check_bullet_civilian_orange_collisions()
+        self._check_bullet_civilian_purple_collisions()
+        self._check_bullet_civilian_turquoise_collisions()
+        self._check_bullet_civilian_pink_collisions()
+        self._check_bullet_civilian_red_collisions()
+        self._check_bullet_civilian_yellow_collisions()
         self._check_bullet_alien_collisions()
 
     def _check_bullet_alien_collisions(self):
@@ -334,6 +380,49 @@ class Game:
                 self.stats.score += self.settings.alien_points * len(aliens)
             self.sb.prep_score()
             self.sb.check_high_score()
+
+    def _check_bullet_civilian_orange_collisions(self):
+        collisions = pygame.sprite.groupcollide(
+            self.bullets, self.civilian_oranges, True, True)
+        if collisions:
+            self.bullets.empty()
+            self._create_civilian_orange()
+
+    def _check_bullet_civilian_purple_collisions(self):
+        collisions = pygame.sprite.groupcollide(
+            self.bullets, self.civilian_purples, True, True)
+        if collisions:
+            self.bullets.empty()
+            self._create_civilian_purple()
+
+    def _check_bullet_civilian_turquoise_collisions(self):
+        collisions = pygame.sprite.groupcollide(
+            self.bullets, self.civilian_turquoises, True, True)
+        if collisions:
+            self.bullets.empty()
+            self._create_civilian_turquoise()
+
+    def _check_bullet_civilian_pink_collisions(self):
+        collisions = pygame.sprite.groupcollide(
+            self.bullets, self.civilian_pinks, True, True)
+        if collisions:
+            self.bullets.empty()
+            self._create_civilian_pink()
+            self.settings.increase_speed()
+
+    def _check_bullet_civilian_red_collisions(self):
+        collisions = pygame.sprite.groupcollide(
+            self.bullets, self.civilian_reds, True, True)
+        if collisions:
+            self.bullets.empty()
+            self._create_civilian_red()
+
+    def _check_bullet_civilian_yellow_collisions(self):
+        collisions = pygame.sprite.groupcollide(
+            self.bullets, self.civilian_yellows, True, True)
+        if collisions:
+            self.bullets.empty()
+            self._create_civilian_yellow()
 
     def _fire_bullet1(self):
         if len(self.bullet1s) < self.settings.bullet1s_allowed:
@@ -349,6 +438,11 @@ class Game:
                 self.bullet1s.remove(bullet1)
 
         self._check_bullet1_civilian_orange_collisions()
+        self._check_bullet1_civilian_purple_collisions()
+        self._check_bullet1_civilian_turquoise_collisions()
+        self._check_bullet1_civilian_pink_collisions()
+        self._check_bullet1_civilian_red_collisions()
+        self._check_bullet1_civilian_yellow_collisions()
         self._check_bullet1_evil_alien_collisions()
         self._check_bullet1_alien1_collisions()
 
@@ -358,11 +452,41 @@ class Game:
         if collisions:
             self.bullet1s.empty()
             self._create_civilian_orange()
-            self.settings.increase_speed()
-            for civilian_oranges in collisions.values():
-                self.stats.score += self.settings.alien1_points * len(civilian_oranges)
-            self.sb.prep_score()
-            self.sb.check_high_score()
+
+    def _check_bullet1_civilian_purple_collisions(self):
+        collisions = pygame.sprite.groupcollide(
+            self.bullet1s, self.civilian_purples, True, True)
+        if collisions:
+            self.bullet1s.empty()
+            self._create_civilian_purple()
+
+    def _check_bullet1_civilian_turquoise_collisions(self):
+        collisions = pygame.sprite.groupcollide(
+            self.bullet1s, self.civilian_turquoises, True, True)
+        if collisions:
+            self.bullet1s.empty()
+            self._create_civilian_turquoise()
+
+    def _check_bullet1_civilian_pink_collisions(self):
+        collisions = pygame.sprite.groupcollide(
+            self.bullet1s, self.civilian_pinks, True, True)
+        if collisions:
+            self.bullet1s.empty()
+            self._create_civilian_pink()
+
+    def _check_bullet1_civilian_red_collisions(self):
+        collisions = pygame.sprite.groupcollide(
+            self.bullet1s, self.civilian_reds, True, True)
+        if collisions:
+            self.bullet1s.empty()
+            self._create_civilian_red()
+
+    def _check_bullet1_civilian_yellow_collisions(self):
+        collisions = pygame.sprite.groupcollide(
+            self.bullet1s, self.civilian_yellows, True, True)
+        if collisions:
+            self.bullet1s.empty()
+            self._create_civilian_yellow()
 
     def _check_bullet1_evil_alien_collisions(self):
         collisions = pygame.sprite.groupcollide(
@@ -372,7 +496,7 @@ class Game:
             self._create_evil_alien()
             self.settings.increase_speed()
             for evil_aliens in collisions.values():
-                self.stats.score += self.settings.alien1_points * len(evil_aliens)
+                self.stats.score += self.settings.evil_alien_points * len(evil_aliens)
             self.sb.prep_score()
             self.sb.check_high_score()
 
@@ -464,6 +588,51 @@ class Game:
 
     def _update_civilian_oranges(self):
         self.civilian_oranges.update()
+
+    def _create_civilian_purple(self):
+        if random() < self.settings.civilian_frequency:
+            civilian_purple = Civilian_purple(self)
+            self.civilian_purples.add(civilian_purple)
+            pygame.mixer.Sound.play(self.giant_sound)
+
+    def _update_civilian_purples(self):
+        self.civilian_purples.update()
+
+    def _create_civilian_turquoise(self):
+        if random() < self.settings.civilian_frequency:
+            civilian_turquoise = Civilian_turquoise(self)
+            self.civilian_turquoises.add(civilian_turquoise)
+            pygame.mixer.Sound.play(self.giant_sound)
+
+    def _update_civilian_turquoises(self):
+        self.civilian_turquoises.update()
+
+    def _create_civilian_pink(self):
+        if random() < self.settings.civilian_frequency:
+            civilian_pink = Civilian_pink(self)
+            self.civilian_pinks.add(civilian_pink)
+            pygame.mixer.Sound.play(self.giant_sound)
+
+    def _update_civilian_pinks(self):
+        self.civilian_pinks.update()
+
+    def _create_civilian_red(self):
+        if random() < self.settings.civilian_frequency:
+            civilian_red = Civilian_red(self)
+            self.civilian_reds.add(civilian_red)
+            pygame.mixer.Sound.play(self.giant_sound)
+
+    def _update_civilian_reds(self):
+        self.civilian_reds.update()
+
+    def _create_civilian_yellow(self):
+        if random() < self.settings.civilian_frequency:
+            civilian_yellow = Civilian_yellow(self)
+            self.civilian_yellows.add(civilian_yellow)
+            pygame.mixer.Sound.play(self.giant_sound)
+
+    def _update_civilian_yellows(self):
+        self.civilian_yellows.update()
 
     def _create_evil_alien(self):
         if random() < self.settings.evil_alien_frequency:
@@ -559,6 +728,11 @@ class Game:
             self.shields.empty()
             self.shield1s.empty()
             self.civilian_oranges.empty()
+            self.civilian_purples.empty()
+            self.civilian_turquoises.empty()
+            self.civilian_pinks.empty()
+            self.civilian_reds.empty()
+            self.civilian_yellows.empty()
             self.evil_aliens.empty()
             self.aliens.empty()
             self.alien1s.empty()
@@ -590,6 +764,11 @@ class Game:
             self.shields.empty()
             self.shield1s.empty()
             self.civilian_oranges.empty()
+            self.civilian_purples.empty()
+            self.civilian_turquoises.empty()
+            self.civilian_pinks.empty()
+            self.civilian_reds.empty()
+            self.civilian_yellows.empty()
             self.evil_aliens.empty()
             self.aliens.empty()
             self.alien1s.empty()
@@ -627,6 +806,11 @@ class Game:
             shield1.draw_shield1()
 
         self.civilian_oranges.draw(self.screen)
+        self.civilian_purples.draw(self.screen)
+        self.civilian_turquoises.draw(self.screen)
+        self.civilian_pinks.draw(self.screen)
+        self.civilian_reds.draw(self.screen)
+        self.civilian_yellows.draw(self.screen)
         self.evil_aliens.draw(self.screen)
         self.aliens.draw(self.screen)
         self.alien1s.draw(self.screen)

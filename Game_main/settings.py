@@ -34,7 +34,7 @@ class Settings:
         self.shield1_color = (194, 23, 232)
         self.shield1s_allowed = 1
 
-        self.civilian_frequency = .001
+        self.civilian_frequency = .0001
         self.civilian_speed = 1
 
         self.evil_alien_frequency = .0001
