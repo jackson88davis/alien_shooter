@@ -34,11 +34,14 @@ class Settings:
         self.shield1_color = (194, 23, 232)
         self.shield1s_allowed = 1
 
+        self.evil_alien_frequency = .0001
+        self.evil_alien_speed = .2
+
         self.alien_frequency = .0015
-        self.alien_speed = 1.5
+        self.alien_speed = .5
 
         self.alien1_frequency = .0015
-        self.alien1_speed = 1.5
+        self.alien1_speed = .5
 
         self.meteor_frequency = .0005
         self.meteor_speed = 1.5
@@ -59,9 +62,10 @@ class Settings:
     def initialize_dynamic_settings(self):
         self.bullet_speed = 2
         self.bullet1_speed = 2
-        self.alien_speed = 1.5
-        self.alien1_speed = 1.5
+        self.alien_speed = .5
+        self.alien1_speed = .5
 
+        self.evil_alien_points = 2000
         self.alien_points = 50
         self.alien1_points = 50
         self.meteor_points = 1000
@@ -73,6 +77,7 @@ class Settings:
         self.alien_speed *= self.speedup_scale
         self.alien1_speed *= self.speedup_scale
 
+        self.evil_alien_points = int(self.evil_alien_points * self.score_scale)
         self.alien_points = int(self.alien_points * self.score_scale)
         self.alien1_points = int(self.alien1_points * self.score_scale)
         self.meteor_points = int(self.meteor_points * self.score_scale)

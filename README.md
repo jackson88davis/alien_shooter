@@ -29,7 +29,7 @@ I am a game developer <img src="https://thumbs.gfycat.com/AngelicConcreteHypsilo
 <!-- Makes a bullet point list -->
 * Planetary Panic-2D alien shooter game
 <div align="center">
-Aliens and meteors will constantly attack increasing in speed after every strike. The player can shoot bullets left and right to kill the aliens or shoot and shield up to explode the meteor. The player has three lives and the goal is to get the highest score possible. Has both one and two player options.
+Aliens and meteors will constantly attack, increasing in speed after every strike. The player can shoot bullets left and right to kill the aliens or shoot and shield up to explode the meteor. The player has three lives and the goal is to get the highest score possible. Has both one and two player options.
 </div>
 
 <img src="https://i.pinimg.com/564x/95/ec/96/95ec962a64bf9202728cdf33afc6a922.jpg" width="600" height="300"/>

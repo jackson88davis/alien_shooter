@@ -12,13 +12,13 @@ class Character1(Sprite):
 
         self.number = 0
 
-        self.image_regular = pygame.transform.scale(pygame.image.load('images/character1_right.png'), (75, 75))
-        self.image_hurt1 = pygame.transform.scale(pygame.image.load('images/character1_right_hurt1.png'), (75, 75))
-        self.image_hurt2 = pygame.transform.scale(pygame.image.load('images/character1_right_hurt2.png'), (75, 75))
-        self.image_hurt3 = pygame.transform.scale(pygame.image.load('images/character1_right_hurt3.png'), (75, 75))
+        self.image_regular = pygame.transform.scale(pygame.image.load('images/character1.png'), (180, 130))
+        self.image_hurt1 = pygame.transform.scale(pygame.image.load('images/character1_hurt1.png'), (180, 130))
+        self.image_hurt2 = pygame.transform.scale(pygame.image.load('images/character1_hurt2.png'), (180, 130))
+        self.image_hurt3 = pygame.transform.scale(pygame.image.load('images/character1_hurt3.png'), (180, 130))
 
-        self.image = pygame.image.load('images/character1_right.png')
-        self.image = pygame.transform.scale(self.image, (75, 75))
+        self.image = pygame.image.load('images/character1.png')
+        self.image = pygame.transform.scale(self.image, (180, 130))
         self.rect = self.image.get_rect()
 
         self.midbottom_character1()
@@ -39,6 +39,37 @@ class Character1(Sprite):
         self.rect.x = self.x
 
     def midbottom_character1(self):
+        self.rect.center = self.screen_rect.center
+
+        self.x = float(self.rect.x)
+
+    def blitme(self):
+        self.screen.blit(self.image, self.rect)
+
+
+class Dead(Sprite):
+
+    def __init__(self, ai_game):
+        super().__init__()
+        self.screen = ai_game.screen
+        self.settings = ai_game.settings
+        self.screen_rect = ai_game.screen.get_rect()
+
+        self.number = 0
+
+        self.image_regular = pygame.transform.scale(pygame.image.load('images/dead.png'), (75, 75))
+
+        self.image = pygame.image.load('images/dead.png')
+        self.image = pygame.transform.scale(self.image, (75, 75))
+        self.rect = self.image.get_rect()
+
+        self.midbottom_dead()
+
+        self.rect.midbottom = self.screen_rect.midbottom
+
+        self.x = float(self.rect.x)
+
+    def midbottom_dead(self):
         self.rect.midbottom = self.screen_rect.midbottom
 
         self.x = float(self.rect.x)

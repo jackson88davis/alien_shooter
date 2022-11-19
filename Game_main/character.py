@@ -10,12 +10,12 @@ class Character(Sprite):
         self.settings = ai_game.settings
         self.screen_rect = ai_game.screen.get_rect()
 
-        self.image_regular = pygame.transform.scale(pygame.image.load('images/character_right.png'), (75, 75))
-        self.image_hurt1 = pygame.transform.scale(pygame.image.load('images/character_right_hurt1.png'), (75, 75))
-        self.image_hurt2 = pygame.transform.scale(pygame.image.load('images/character_right_hurt2.png'), (75, 75))
-        self.image_hurt3 = pygame.transform.scale(pygame.image.load('images/character_right_hurt3.png'), (75, 75))
+        self.image_regular = pygame.transform.scale(pygame.image.load('images/character.png'), (75, 75))
+        self.image_hurt1 = pygame.transform.scale(pygame.image.load('images/character_hurt1.png'), (75, 75))
+        self.image_hurt2 = pygame.transform.scale(pygame.image.load('images/character_hurt2.png'), (75, 75))
+        self.image_hurt3 = pygame.transform.scale(pygame.image.load('images/character_hurt3.png'), (75, 75))
 
-        self.image = pygame.image.load('images/character_right.png')
+        self.image = pygame.image.load('images/character.png')
         self.image = pygame.transform.scale(self.image, (75, 75))
         self.rect = self.image.get_rect()
 

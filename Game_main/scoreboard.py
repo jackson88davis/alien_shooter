@@ -2,7 +2,7 @@ import pygame.font
 from pygame.sprite import Group
 
 from character import Character
-from dead import Dead
+from character1 import Dead
 
 
 class Scoreboard:
