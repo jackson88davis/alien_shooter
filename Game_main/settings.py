@@ -34,6 +34,12 @@ class Settings:
         self.shield1_color = (194, 23, 232)
         self.shield1s_allowed = 1
 
+        self.beam_speed = 2
+        self.beam_width = 120
+        self.beam_height = 200
+        self.beam_color = (255, 255, 51)
+        self.beams_allowed = 1
+
         self.civilian_frequency = .0001
         self.civilian_speed = 1
 
@@ -47,7 +53,7 @@ class Settings:
         self.alien1_speed = .5
 
         self.meteor_frequency = .0005
-        self.meteor_speed = 1.5
+        self.meteor_speed = 1
 
         self.blue_planet_move_left_frequency = .0002
         self.blue_planet_move_left_speed = 3

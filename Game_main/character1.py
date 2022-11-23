@@ -11,6 +11,11 @@ class Character1(Sprite):
         self.screen_rect = ai_game.screen.get_rect()
 
         self.number = 0
+        self.numbers = 0
+        self.numbers1 = 0
+        self.numbers2 = 0
+        self.numbers3 = 0
+        self.numbers4 = 0
 
         self.image_regular = pygame.transform.scale(pygame.image.load('images/character1.png'), (180, 130))
         self.image_hurt1 = pygame.transform.scale(pygame.image.load('images/character1_hurt1.png'), (180, 130))

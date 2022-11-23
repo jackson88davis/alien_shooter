@@ -22,12 +22,26 @@ from instructions import Instructions_move
 from instructions import Instructions_shoot
 from background import Background
 from background import Background1
+from background import Blackhole
+from background import Blackhole1
+from background import Blackhole2
+from background import Blackhole3
+from background import King
+from background import Text
+from background import Message
+from background import Message1
+from background import Message2
+from background import Press1
+from background import Press2
+from background import Press3
+from background import Press4
 from character import Character
 from character1 import Character1
 from bullet import Bullet
 from bullet import Bullet1
 from bullet import Shield
 from bullet import Shield1
+from bullet import Beam
 from civilians import Civilian_orange
 from civilians import Civilian_purple
 from civilians import Civilian_turquoise
@@ -58,6 +72,12 @@ class Game:
 
         self.background = Background(self)
         self.background1 = Background1(self)
+        self.blackhole = Blackhole(self)
+        self.blackhole1 = Blackhole1(self)
+        self.blackhole2 = Blackhole2(self)
+        self.blackhole3 = Blackhole3(self)
+        self.king = King(self)
+        self.text = Text(self)
         self.click = Click(self)
         self.logo = Logo(self)
         self.character = Character(self)
@@ -66,6 +86,7 @@ class Game:
         self.bullet1s = pygame.sprite.Group()
         self.shields = pygame.sprite.Group()
         self.shield1s = pygame.sprite.Group()
+        self.beams = pygame.sprite.Group()
         self.civilian_oranges = pygame.sprite.Group()
         self.civilian_purples = pygame.sprite.Group()
         self.civilian_turquoises = pygame.sprite.Group()
@@ -81,6 +102,7 @@ class Game:
 
         self.mixer = mixer
         self.alien_sound = pygame.mixer.Sound('sounds/alien_sound.wav')
+        self.blackhole_sound = pygame.mixer.Sound('sounds/blackhole_sound.mp3')
         self.click_sound = pygame.mixer.Sound('sounds/click_sound.ogg')
         self.confirmation_sound = pygame.mixer.Sound('sounds/confirmation_sound.ogg')
         self.crash_sound = pygame.mixer.Sound('sounds/crash_sound.wav')
@@ -91,6 +113,7 @@ class Game:
         self.hi_sound = pygame.mixer.Sound('sounds/hi_sound.mp3')
         self.hurt_sound = pygame.mixer.Sound('sounds/hurt_sound.wav')
         self.instructions_sound = pygame.mixer.Sound('sounds/instructions_sound.wav')
+        self.lalala_sound = pygame.mixer.Sound('sounds/lalala_sound.wav')
         self.laser_sound = pygame.mixer.Sound('sounds/laser_sound.ogg')
         self.loss_sound = pygame.mixer.Sound('sounds/loss_sound.wav')
         self.meteor_explosion_sound = pygame.mixer.Sound('sounds/meteor_explosion_sound.ogg')
@@ -98,6 +121,7 @@ class Game:
         self.ouch_sound = pygame.mixer.Sound('sounds/ouch_sound.mp3')
         self.quit_sound = pygame.mixer.Sound('sounds/quit_sound.mp3')
         self.shield_sound = pygame.mixer.Sound('sounds/shield_sound.mp3')
+        self.space_sound = pygame.mixer.Sound('sounds/space_sound.aiff')
         self.stop_sound = pygame.mixer.Sound('sounds/stop_sound.mp3')
         self.what_sound = pygame.mixer.Sound('sounds/what_sound.mp3')
 
@@ -115,6 +139,13 @@ class Game:
         self.play_instructions_shoot = Instructions_shoot(self, "-Use the 'a', 'w', and 'd' keys to shoot-")
         self.play_creator = Creator(self, "E-X-T-I-N-C-T-I-O-N       G-A-M-E-S")
         self.play_hs = Hs(self, "HIGH SCORE!")
+        self.play_message = Message(self, "HOW DARE YOU!")
+        self.play_message1 = Message1(self, "YOU ARE A TRAITOR!")
+        self.play_message2 = Message2(self, "DIE!")
+        self.play_press1 = Press1(self, "PRESS 1")
+        self.play_press2 = Press2(self, "PRESS 2")
+        self.play_press3 = Press3(self, "PRESS 3")
+        self.play_press4 = Press4(self, "PRESS 4")
         self.play_click = Click(self)
         self.play_logo = Logo(self)
 
@@ -129,6 +160,7 @@ class Game:
                 self._update_bullet1s()
                 self._update_shields()
                 self._update_shield1s()
+                self._update_beams()
                 self._create_civilian_orange()
                 self._update_civilian_oranges()
                 self._create_civilian_purple()
@@ -276,7 +308,7 @@ class Game:
     def _check_logo(self, mouse_pos):
         logo_clicked = self.play_logo.rect.collidepoint(mouse_pos)
         if logo_clicked:
-            pygame.mixer.Sound.play(self.stop_sound)
+            pygame.mixer.Sound.play(self.space_sound)
 
     def _check_instructions_alien(self, mouse_pos):
         instructions_alien_clicked = self.play_instructions_alien.rect.collidepoint(mouse_pos)
@@ -329,6 +361,20 @@ class Game:
                 self.character1.moving_left = True
             if event.key == pygame.K_w:
                 self._fire_shield1()
+            if event.key == pygame.K_s:
+                self._fire_beam()
+        if self.character1.numbers == 1:
+            if event.key == pygame.K_1:
+                self.character1.numbers1 = 1
+        if self.character1.numbers1 == 1:
+            if event.key == pygame.K_2:
+                self.character1.numbers2 = 1
+        if self.character1.numbers2 == 1:
+            if event.key == pygame.K_3:
+                self.character1.numbers3 = 1
+        if self.character1.numbers3 == 1:
+            if event.key == pygame.K_4:
+                self.character1.numbers4 = 1
         if self.stats.game_active == True and event.key == pygame.K_TAB:
             pygame.mixer.music.stop()
             self.stats.game_active = False
@@ -387,6 +433,7 @@ class Game:
         if collisions:
             self.bullets.empty()
             self._create_civilian_orange()
+            self.character1.numbers = 1
 
     def _check_bullet_civilian_purple_collisions(self):
         collisions = pygame.sprite.groupcollide(
@@ -394,6 +441,7 @@ class Game:
         if collisions:
             self.bullets.empty()
             self._create_civilian_purple()
+            self.character1.numbers = 1
 
     def _check_bullet_civilian_turquoise_collisions(self):
         collisions = pygame.sprite.groupcollide(
@@ -401,6 +449,7 @@ class Game:
         if collisions:
             self.bullets.empty()
             self._create_civilian_turquoise()
+            self.character1.numbers = 1
 
     def _check_bullet_civilian_pink_collisions(self):
         collisions = pygame.sprite.groupcollide(
@@ -408,7 +457,7 @@ class Game:
         if collisions:
             self.bullets.empty()
             self._create_civilian_pink()
-            self.settings.increase_speed()
+            self.character1.numbers = 1
 
     def _check_bullet_civilian_red_collisions(self):
         collisions = pygame.sprite.groupcollide(
@@ -416,6 +465,7 @@ class Game:
         if collisions:
             self.bullets.empty()
             self._create_civilian_red()
+            self.character1.numbers = 1
 
     def _check_bullet_civilian_yellow_collisions(self):
         collisions = pygame.sprite.groupcollide(
@@ -423,6 +473,7 @@ class Game:
         if collisions:
             self.bullets.empty()
             self._create_civilian_yellow()
+            self.character1.numbers = 1
 
     def _fire_bullet1(self):
         if len(self.bullet1s) < self.settings.bullet1s_allowed:
@@ -452,6 +503,7 @@ class Game:
         if collisions:
             self.bullet1s.empty()
             self._create_civilian_orange()
+            self.character1.numbers = 1
 
     def _check_bullet1_civilian_purple_collisions(self):
         collisions = pygame.sprite.groupcollide(
@@ -459,6 +511,7 @@ class Game:
         if collisions:
             self.bullet1s.empty()
             self._create_civilian_purple()
+            self.character1.numbers = 1
 
     def _check_bullet1_civilian_turquoise_collisions(self):
         collisions = pygame.sprite.groupcollide(
@@ -466,6 +519,7 @@ class Game:
         if collisions:
             self.bullet1s.empty()
             self._create_civilian_turquoise()
+            self.character1.numbers = 1
 
     def _check_bullet1_civilian_pink_collisions(self):
         collisions = pygame.sprite.groupcollide(
@@ -473,6 +527,7 @@ class Game:
         if collisions:
             self.bullet1s.empty()
             self._create_civilian_pink()
+            self.character1.numbers = 1
 
     def _check_bullet1_civilian_red_collisions(self):
         collisions = pygame.sprite.groupcollide(
@@ -480,6 +535,7 @@ class Game:
         if collisions:
             self.bullet1s.empty()
             self._create_civilian_red()
+            self.character1.numbers = 1
 
     def _check_bullet1_civilian_yellow_collisions(self):
         collisions = pygame.sprite.groupcollide(
@@ -487,6 +543,7 @@ class Game:
         if collisions:
             self.bullet1s.empty()
             self._create_civilian_yellow()
+            self.character1.numbers = 1
 
     def _check_bullet1_evil_alien_collisions(self):
         collisions = pygame.sprite.groupcollide(
@@ -539,7 +596,6 @@ class Game:
         if collisions:
             self.shields.empty()
             self._create_meteor()
-            self.settings.increase_speed()
             for meteors in collisions.values():
                 self.stats.score += self.settings.meteor_points * len(meteors)
             self.sb.prep_score()
@@ -573,18 +629,73 @@ class Game:
         if collisions:
             self.shield1s.empty()
             self._create_meteor()
-            self.settings.increase_speed()
             for meteors in collisions.values():
                 self.stats.score += self.settings.meteor_points * len(meteors)
             self.sb.prep_score()
             self.sb.check_high_score()
             pygame.mixer.Sound.play(self.meteor_explosion_sound)
 
+    def _fire_beam(self):
+        if len(self.beams) < self.settings.beams_allowed:
+            new_beam = Beam(self)
+            self.beams.add(new_beam)
+            pygame.mixer.Sound.play(self.shield_sound)
+
+    def _update_beams(self):
+        self.beams.update()
+
+        for beam in self.beams.copy():
+            if beam.rect.left <= 0:
+                self.beams.remove(beam)
+
+        self._check_beams_bottom()
+        self._check_beam_evil_alien_collisions()
+        self._check_beam_alien_collisions()
+        self._check_beam_alien1_collisions()
+
+    def _check_beams_bottom(self):
+        for beam in self.beams.sprites():
+            if beam.rect.bottom < 0:
+                self.beams.empty()
+
+    def _check_beam_alien_collisions(self):
+        collisions = pygame.sprite.groupcollide(
+            self.beams, self.aliens, True, True)
+        if collisions:
+            self.beams.empty()
+            self._create_alien()
+            for aliens in collisions.values():
+                self.stats.score += self.settings.alien_points * len(aliens)
+            self.sb.prep_score()
+            self.sb.check_high_score()
+
+    def _check_beam_alien1_collisions(self):
+        collisions = pygame.sprite.groupcollide(
+            self.beams, self.alien1s, True, True)
+        if collisions:
+            self.beams.empty()
+            self._create_alien1()
+            for alien1s in collisions.values():
+                self.stats.score += self.settings.alien1_points * len(alien1s)
+            self.sb.prep_score()
+            self.sb.check_high_score()
+
+    def _check_beam_evil_alien_collisions(self):
+        collisions = pygame.sprite.groupcollide(
+            self.beams, self.evil_aliens, True, True)
+        if collisions:
+            self.beams.empty()
+            self._create_evil_alien()
+            for evil_aliens in collisions.values():
+                self.stats.score += self.settings.evil_alien_points * len(evil_aliens)
+            self.sb.prep_score()
+            self.sb.check_high_score()
+
     def _create_civilian_orange(self):
         if random() < self.settings.civilian_frequency:
             civilian_orange = Civilian_orange(self)
             self.civilian_oranges.add(civilian_orange)
-            pygame.mixer.Sound.play(self.giant_sound)
+            pygame.mixer.Sound.play(self.lalala_sound)
 
     def _update_civilian_oranges(self):
         self.civilian_oranges.update()
@@ -593,7 +704,7 @@ class Game:
         if random() < self.settings.civilian_frequency:
             civilian_purple = Civilian_purple(self)
             self.civilian_purples.add(civilian_purple)
-            pygame.mixer.Sound.play(self.giant_sound)
+            pygame.mixer.Sound.play(self.lalala_sound)
 
     def _update_civilian_purples(self):
         self.civilian_purples.update()
@@ -602,7 +713,7 @@ class Game:
         if random() < self.settings.civilian_frequency:
             civilian_turquoise = Civilian_turquoise(self)
             self.civilian_turquoises.add(civilian_turquoise)
-            pygame.mixer.Sound.play(self.giant_sound)
+            pygame.mixer.Sound.play(self.lalala_sound)
 
     def _update_civilian_turquoises(self):
         self.civilian_turquoises.update()
@@ -611,7 +722,7 @@ class Game:
         if random() < self.settings.civilian_frequency:
             civilian_pink = Civilian_pink(self)
             self.civilian_pinks.add(civilian_pink)
-            pygame.mixer.Sound.play(self.giant_sound)
+            pygame.mixer.Sound.play(self.lalala_sound)
 
     def _update_civilian_pinks(self):
         self.civilian_pinks.update()
@@ -620,7 +731,7 @@ class Game:
         if random() < self.settings.civilian_frequency:
             civilian_red = Civilian_red(self)
             self.civilian_reds.add(civilian_red)
-            pygame.mixer.Sound.play(self.giant_sound)
+            pygame.mixer.Sound.play(self.lalala_sound)
 
     def _update_civilian_reds(self):
         self.civilian_reds.update()
@@ -629,7 +740,7 @@ class Game:
         if random() < self.settings.civilian_frequency:
             civilian_yellow = Civilian_yellow(self)
             self.civilian_yellows.add(civilian_yellow)
-            pygame.mixer.Sound.play(self.giant_sound)
+            pygame.mixer.Sound.play(self.lalala_sound)
 
     def _update_civilian_yellows(self):
         self.civilian_yellows.update()
@@ -727,6 +838,7 @@ class Game:
             self.bullet1s.empty()
             self.shields.empty()
             self.shield1s.empty()
+            self.beams.empty()
             self.civilian_oranges.empty()
             self.civilian_purples.empty()
             self.civilian_turquoises.empty()
@@ -763,6 +875,7 @@ class Game:
             self.bullet1s.empty()
             self.shields.empty()
             self.shield1s.empty()
+            self.beams.empty()
             self.civilian_oranges.empty()
             self.civilian_purples.empty()
             self.civilian_turquoises.empty()
@@ -793,9 +906,11 @@ class Game:
     def _update_screen(self):
         self.background1.blitme()
         self.background.blitme()
-        self.character.blitme()
+
+        self.sb.show_score()
         if self.character1.number == 1:
-            self.character1.blitme()
+            self.sb.show_score1()
+
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
         for bullet1 in self.bullet1s.sprites():
@@ -804,6 +919,8 @@ class Game:
             shield.draw_shield()
         for shield1 in self.shield1s.sprites():
             shield1.draw_shield1()
+        for beam in self.beams.sprites():
+            beam.draw_beam()
 
         self.civilian_oranges.draw(self.screen)
         self.civilian_purples.draw(self.screen)
@@ -818,11 +935,54 @@ class Game:
         self.blue_planet_move_lefts.draw(self.screen)
         self.blue_planet_move_rights.draw(self.screen)
 
-        self.sb.show_score()
+        if self.character1.numbers == 1:
+            pygame.mixer.music.stop()
+            pygame.mixer.Sound.play(self.blackhole_sound)
+            self.civilian_oranges.empty()
+            self.civilian_purples.empty()
+            self.civilian_turquoises.empty()
+            self.civilian_pinks.empty()
+            self.civilian_reds.empty()
+            self.civilian_yellows.empty()
+            self.evil_aliens.empty()
+            self.aliens.empty()
+            self.alien1s.empty()
+            self.meteors.empty()
+            self.blue_planet_move_lefts.empty()
+            self.blue_planet_move_rights.empty()
+        if self.character1.numbers2 == 1:
+            self.blackhole2.blitme()
+        if self.character1.numbers1 == 1:
+            self.blackhole1.blitme()
+        if self.character1.numbers == 1:
+            self.blackhole.blitme()
+            self.play_press1.draw_press1()
+            self.king.blitme()
+            self.text.blitme()
+            self.play_message.draw_message()
+        if self.character1.numbers1 == 1:
+            self.play_message1.draw_message1()
+            self.play_press2.draw_press2()
+        if self.character1.numbers2 == 1:
+            self.play_message2.draw_message2()
+            self.play_press3.draw_press3()
+        self.character.blitme()
         if self.character1.number == 1:
-            self.sb.show_score1()
+            self.character1.blitme()
+        if self.character1.numbers3 == 1:
+            self.blackhole3.blitme()
+            self.play_press4.draw_press4()
+        if self.character1.numbers4 == 1:
+            self.stats.game_active = False
 
         if not self.stats.game_active:
+            self.character1.number = 0
+            self.character1.numbers = 0
+            self.character1.numbers1 = 0
+            self.character1.numbers2 = 0
+            self.character1.numbers3 = 0
+            self.character1.numbers4 = 0
+            pygame.mixer.Sound.stop(self.blackhole_sound)
             self.character.image = self.character.image_regular
             self.character1.image = self.character1.image_regular
             self.click.blitme()

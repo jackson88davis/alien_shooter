@@ -88,3 +88,26 @@ class Shield1(Sprite):
 
     def draw_shield1(self):
         pygame.draw.rect(self.screen, self.color, self.rect)
+
+
+class Beam(Sprite):
+
+    def __init__(self, ai_game):
+        super().__init__()
+        self.screen = ai_game.screen
+        self.settings = ai_game.settings
+        self.color = self.settings.beam_color
+
+        self.rect = pygame.Rect(0, 0, self.settings.beam_width,
+                                self.settings.beam_height)
+        self.rect.midbottom = ai_game.character1.rect.midbottom
+        self.rect.move_ip(0, 150)
+
+        self.y = float(self.rect.y)
+
+    def update(self):
+        self.y += self.settings.beam_speed
+        self.rect.y = self.y
+
+    def draw_beam(self):
+        pygame.draw.rect(self.screen, self.color, self.rect)
