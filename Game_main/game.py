@@ -586,11 +586,65 @@ class Game:
 
         self._check_shields_top()
         self._check_shield_meteor_collisions()
+        self._check_beam_civilian_orange_collisions()
+        self._check_beam_civilian_purple_collisions()
+        self._check_beam_civilian_turquoise_collisions()
+        self._check_beam_civilian_pink_collisions()
+        self._check_beam_civilian_red_collisions()
+        self._check_beam_civilian_yellow_collisions()
 
     def _check_shields_top(self):
         for shield in self.shields.sprites():
             if shield.rect.top < 0:
                 self.shields.empty()
+
+    def _check_beam_civilian_orange_collisions(self):
+        collisions = pygame.sprite.groupcollide(
+            self.beams, self.civilian_oranges, True, True)
+        if collisions:
+            self.beams.empty()
+            self._create_civilian_orange()
+            self.character1.numbers = 1
+
+    def _check_beam_civilian_purple_collisions(self):
+        collisions = pygame.sprite.groupcollide(
+            self.beams, self.civilian_purples, True, True)
+        if collisions:
+            self.beams.empty()
+            self._create_civilian_purple()
+            self.character1.numbers = 1
+
+    def _check_beam_civilian_turquoise_collisions(self):
+        collisions = pygame.sprite.groupcollide(
+            self.beams, self.civilian_turquoises, True, True)
+        if collisions:
+            self.beams.empty()
+            self._create_civilian_turquoise()
+            self.character1.numbers = 1
+
+    def _check_beam_civilian_pink_collisions(self):
+        collisions = pygame.sprite.groupcollide(
+            self.beams, self.civilian_pinks, True, True)
+        if collisions:
+            self.beams.empty()
+            self._create_civilian_pink()
+            self.character1.numbers = 1
+
+    def _check_beam_civilian_red_collisions(self):
+        collisions = pygame.sprite.groupcollide(
+            self.beams, self.civilian_reds, True, True)
+        if collisions:
+            self.beams.empty()
+            self._create_civilian_red()
+            self.character1.numbers = 1
+
+    def _check_beam_civilian_yellow_collisions(self):
+        collisions = pygame.sprite.groupcollide(
+            self.beams, self.civilian_yellows, True, True)
+        if collisions:
+            self.beams.empty()
+            self._create_civilian_yellow()
+            self.character1.numbers = 1
 
     def _check_shield_meteor_collisions(self):
         collisions = pygame.sprite.groupcollide(
