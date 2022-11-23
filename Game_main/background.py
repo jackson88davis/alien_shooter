@@ -88,7 +88,7 @@ class Blackhole3:
         self.screen_rect = ai_game.screen.get_rect()
 
         self.image = pygame.image.load('images/black.png')
-        self.image = pygame.transform.scale(self.image, (3000, 3000))
+        self.image = pygame.transform.scale(self.image, (1300, 800))
         self.rect = self.image.get_rect()
 
         self.rect.center = self.screen_rect.center
@@ -324,4 +324,31 @@ class Press4:
 
     def draw_press4(self):
         self.screen.fill(self.press4_color, self.rect)
+        self.screen.blit(self.msg_image, self.msg_image_rect)
+
+
+class Vastness:
+
+    def __init__(self, ai_game, msg):
+        self.screen = ai_game.screen
+        self.screen_rect = self.screen.get_rect()
+
+        self.width, self.height = 480, 50
+        self.vastness_color = (96, 0, 141)
+        self.text_color = (0, 0, 0)
+        self.font = pygame.font.SysFont(None, 24, bold=True)
+
+        self.rect = pygame.Rect(0, 0, self.width, self.height)
+        self.rect.center = self.screen_rect.center
+
+        self._prep_msg(msg)
+
+    def _prep_msg(self, msg):
+        self.msg_image = self.font.render(msg, True, self.text_color,
+                                          self.vastness_color)
+        self.msg_image_rect = self.msg_image.get_rect()
+        self.msg_image_rect.center = self.rect.center
+
+    def draw_vastness(self):
+        self.screen.fill(self.vastness_color, self.rect)
         self.screen.blit(self.msg_image, self.msg_image_rect)

@@ -14,13 +14,13 @@ class Settings:
         self.bullet_width = 15
         self.bullet_height = 5
         self.bullet_color = (194, 23, 232)
-        self.bullets_allowed = 2
+        self.bullets_allowed = 1
 
         self.bullet1_speed = 2
         self.bullet1_width = 15
         self.bullet1_height = 5
         self.bullet1_color = (194, 23, 232)
-        self.bullet1s_allowed = 2
+        self.bullet1s_allowed = 1
 
         self.shield_speed = 4
         self.shield_width = 95

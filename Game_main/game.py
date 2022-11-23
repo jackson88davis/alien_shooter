@@ -35,6 +35,7 @@ from background import Press1
 from background import Press2
 from background import Press3
 from background import Press4
+from background import Vastness
 from character import Character
 from character1 import Character1
 from bullet import Bullet
@@ -146,6 +147,7 @@ class Game:
         self.play_press2 = Press2(self, "PRESS 2")
         self.play_press3 = Press3(self, "PRESS 3")
         self.play_press4 = Press4(self, "PRESS 4")
+        self.play_vastness = Vastness(self, "You are floating through the empty vastness of space")
         self.play_click = Click(self)
         self.play_logo = Logo(self)
 
@@ -645,7 +647,7 @@ class Game:
         self.beams.update()
 
         for beam in self.beams.copy():
-            if beam.rect.left <= 0:
+            if beam.rect.top >= self.screen.get_rect().bottom:
                 self.beams.remove(beam)
 
         self._check_beams_bottom()
@@ -972,6 +974,7 @@ class Game:
         if self.character1.numbers3 == 1:
             self.blackhole3.blitme()
             self.play_press4.draw_press4()
+            self.play_vastness.draw_vastness()
         if self.character1.numbers4 == 1:
             self.stats.game_active = False
 
