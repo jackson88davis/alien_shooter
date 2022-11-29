@@ -3,21 +3,21 @@ import pygame
 
 class Background:
 
-    def __init__(self, ai_game):
+    def __init__(self, ai_game):  # Parameters and initializing
         self.screen = ai_game.screen
         self.screen_rect = ai_game.screen.get_rect()
 
-        self.image = pygame.image.load('images/mars.png')
-        self.image = pygame.transform.scale(self.image, (1300, 550))
-        self.rect = self.image.get_rect()
+        self.image = pygame.image.load('images/mars.png')  # Loads Mars background image
+        self.image = pygame.transform.scale(self.image, (1300, 550))  # Smooths out the image and changes the size
+        self.rect = self.image.get_rect()  # Creates rect from the image
 
-        self.rect.midbottom = self.screen_rect.midbottom
+        self.rect.midbottom = self.screen_rect.midbottom  # Sets position midbottom
 
     def blitme(self):
-        self.screen.blit(self.image, self.rect)
+        self.screen.blit(self.image, self.rect)  # Draws the image to the screen
 
 
-class Background1:
+class Background1:  # Same as Background
 
     def __init__(self, ai_game):
         self.screen = ai_game.screen
@@ -33,7 +33,7 @@ class Background1:
         self.screen.blit(self.image, self.rect)
 
 
-class Blackhole:
+class Blackhole:  # Same as Background
 
     def __init__(self, ai_game):
         self.screen = ai_game.screen
@@ -49,7 +49,7 @@ class Blackhole:
         self.screen.blit(self.image, self.rect)
 
 
-class Blackhole1:
+class Blackhole1:  # Same as Background
 
     def __init__(self, ai_game):
         self.screen = ai_game.screen
@@ -65,7 +65,7 @@ class Blackhole1:
         self.screen.blit(self.image, self.rect)
 
 
-class Blackhole2:
+class Blackhole2:  # Same as Background
 
     def __init__(self, ai_game):
         self.screen = ai_game.screen
@@ -81,7 +81,7 @@ class Blackhole2:
         self.screen.blit(self.image, self.rect)
 
 
-class Blackhole3:
+class Blackhole3:  # Same as Background
 
     def __init__(self, ai_game):
         self.screen = ai_game.screen
@@ -97,7 +97,7 @@ class Blackhole3:
         self.screen.blit(self.image, self.rect)
 
 
-class King:
+class King:  # Same as Background
 
     def __init__(self, ai_game):
         self.screen = ai_game.screen
@@ -108,13 +108,13 @@ class King:
         self.rect = self.image.get_rect()
 
         self.rect.center = self.screen_rect.center
-        self.rect.move_ip(-150, -60)
+        self.rect.move_ip(-150, -60)  # Sets 150 left and 60 above center
 
     def blitme(self):
         self.screen.blit(self.image, self.rect)
 
 
-class Text:
+class Text:  # Same as Background
 
     def __init__(self, ai_game):
         self.screen = ai_game.screen
@@ -125,7 +125,7 @@ class Text:
         self.rect = self.image.get_rect()
 
         self.rect.center = self.screen_rect.center
-        self.rect.move_ip(-90, -125)
+        self.rect.move_ip(-90, -125)  # Sets 90 left and 125 above center
 
     def blitme(self):
         self.screen.blit(self.image, self.rect)
@@ -133,33 +133,34 @@ class Text:
 
 class Message:
 
-    def __init__(self, ai_game, msg):
+    def __init__(self, ai_game, msg):  # Parameters and initializing
         self.screen = ai_game.screen
         self.screen_rect = self.screen.get_rect()
 
-        self.width, self.height = 20, 20
-        self.message_color = (255, 255, 255)
-        self.text_color = (0, 0, 0)
-        self.font = pygame.font.SysFont(None, 18, bold=True)
+        self.width, self.height = 20, 20  # Sets width and height
+        self.message_color = (255, 255, 255)  # Sets box color
+        self.text_color = (0, 0, 0)  # Sets text color
+        self.font = pygame.font.SysFont(None, 18, bold=True)  # Sets font size and bolds
 
         self.rect = pygame.Rect(0, 0, self.width, self.height)
-        self.rect.center = self.screen_rect.center
-        self.rect.move_ip(-90, -140)
+        self.rect.center = self.screen_rect.center  # Sets position center
+        self.rect.move_ip(-90, -140)  # Sets 90 left and 140 above the center
 
-        self._prep_msg(msg)
+        self._prep_msg(msg)  # Initializes _prep_msg
 
     def _prep_msg(self, msg):
         self.msg_image = self.font.render(msg, True, self.text_color,
-                                          self.message_color)
-        self.msg_image_rect = self.msg_image.get_rect()
-        self.msg_image_rect.center = self.rect.center
+                                          self.message_color)  # Makes edges smoother and sets the text
+        # and background color
+        self.msg_image_rect = self.msg_image.get_rect()  # Creates rect from the image
+        self.msg_image_rect.center = self.rect.center  # Puts text in the center of the box
 
     def draw_message(self):
-        self.screen.fill(self.message_color, self.rect)
-        self.screen.blit(self.msg_image, self.msg_image_rect)
+        self.screen.fill(self.message_color, self.rect)  # Draws rectangular portion of the button
+        self.screen.blit(self.msg_image, self.msg_image_rect)  # Draws the message image to the screen
 
 
-class Message1:
+class Message1:  # Same as Message
 
     def __init__(self, ai_game, msg):
         self.screen = ai_game.screen
@@ -187,7 +188,7 @@ class Message1:
         self.screen.blit(self.msg_image, self.msg_image_rect)
 
 
-class Message2:
+class Message2:  # Same as Message
 
     def __init__(self, ai_game, msg):
         self.screen = ai_game.screen
@@ -215,7 +216,7 @@ class Message2:
         self.screen.blit(self.msg_image, self.msg_image_rect)
 
 
-class Press1:
+class Press1:  # Same as Message
 
     def __init__(self, ai_game, msg):
         self.screen = ai_game.screen
@@ -243,7 +244,7 @@ class Press1:
         self.screen.blit(self.msg_image, self.msg_image_rect)
 
 
-class Press2:
+class Press2:  # Same as Message
 
     def __init__(self, ai_game, msg):
         self.screen = ai_game.screen
@@ -271,7 +272,7 @@ class Press2:
         self.screen.blit(self.msg_image, self.msg_image_rect)
 
 
-class Press3:
+class Press3:  # Same as Message
 
     def __init__(self, ai_game, msg):
         self.screen = ai_game.screen
@@ -299,7 +300,7 @@ class Press3:
         self.screen.blit(self.msg_image, self.msg_image_rect)
 
 
-class Press4:
+class Press4:  # Same as Message
 
     def __init__(self, ai_game, msg):
         self.screen = ai_game.screen
@@ -327,7 +328,7 @@ class Press4:
         self.screen.blit(self.msg_image, self.msg_image_rect)
 
 
-class Vastness:
+class Vastness:  # Same as Message
 
     def __init__(self, ai_game, msg):
         self.screen = ai_game.screen

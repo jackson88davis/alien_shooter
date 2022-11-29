@@ -5,25 +5,25 @@ from random import randint
 
 class Evil_alien(Sprite):
 
-    def __init__(self, ai_game):
+    def __init__(self, ai_game):  # Parameters and initializing
         super().__init__()
         self.screen = ai_game.screen
         self.settings = ai_game.settings
 
-        self.image = pygame.image.load('images/evil_alien.png')
-        self.image = pygame.transform.scale(self.image, (240, 240))
-        self.rect = self.image.get_rect()
+        self.image = pygame.image.load('images/evil_alien.png')  # Loads evil alien image
+        self.image = pygame.transform.scale(self.image, (240, 240))  # Smooths out the image and changes the size
+        self.rect = self.image.get_rect()  # Creates rect from the image
 
-        self.rect.bottomright = self.screen.get_rect().bottomleft
+        self.rect.bottomright = self.screen.get_rect().bottomleft  # Moves right to left
 
-        self.x = float(self.rect.x)
+        self.x = float(self.rect.x)  # Store decimal value for x-coordinate
 
     def update(self):
-        self.x += self.settings.evil_alien_speed
-        self.rect.x = self.x
+        self.x += self.settings.evil_alien_speed  # Add increasing x-coordinate to evil_alien_speed
+        self.rect.x = self.x  # Use value self.x to set value of self.rect.x
 
 
-class Alien(Sprite):
+class Alien(Sprite):  # Same as Evil_alien
 
     def __init__(self, ai_game):
         super().__init__()
@@ -43,7 +43,7 @@ class Alien(Sprite):
         self.rect.x = self.x
 
 
-class Alien1(Sprite):
+class Alien1(Sprite):  # Same as Evil_alien
 
     def __init__(self, ai_game):
         super().__init__()
@@ -63,7 +63,7 @@ class Alien1(Sprite):
         self.rect.x = self.x
 
 
-class Blue_Planet_Move_Left(Sprite):
+class Blue_Planet_Move_Left(Sprite):  # Same as Evil_alien
 
     def __init__(self, ai_game):
         super().__init__()
@@ -83,7 +83,7 @@ class Blue_Planet_Move_Left(Sprite):
         self.rect.x = self.x
 
 
-class Blue_Planet_Move_Right(Sprite):
+class Blue_Planet_Move_Right(Sprite):  # Same as Evil_alien
 
     def __init__(self, ai_game):
         super().__init__()
@@ -103,7 +103,7 @@ class Blue_Planet_Move_Right(Sprite):
         self.rect.x = self.x
 
 
-class Meteor(Sprite):
+class Meteor(Sprite):  # Same as Evil_alien
 
     def __init__(self, ai_game):
         super().__init__()

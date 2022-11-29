@@ -2,7 +2,7 @@ import pygame
 from pygame.sprite import Sprite
 
 
-class Character1(Sprite):
+class Character1(Sprite):  # Same as Character
 
     def __init__(self, ai_game):
         super().__init__()
@@ -10,6 +10,7 @@ class Character1(Sprite):
         self.settings = ai_game.settings
         self.screen_rect = ai_game.screen.get_rect()
 
+        # Variables for if statements for player 2 game
         self.number = 0
         self.numbers = 0
         self.numbers1 = 0
@@ -52,7 +53,7 @@ class Character1(Sprite):
         self.screen.blit(self.image, self.rect)
 
 
-class Dead(Sprite):
+class Dead(Sprite):  # Same as Character
 
     def __init__(self, ai_game):
         super().__init__()
@@ -60,6 +61,7 @@ class Dead(Sprite):
         self.settings = ai_game.settings
         self.screen_rect = ai_game.screen.get_rect()
 
+        # Variable for if statements for player 2 game
         self.number = 0
 
         self.image_regular = pygame.transform.scale(pygame.image.load('images/dead.png'), (75, 75))

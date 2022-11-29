@@ -3,33 +3,34 @@ import pygame.font
 
 class Title:
 
-    def __init__(self, ai_game, msg):
+    def __init__(self, ai_game, msg):  # Parameters and initializing
         self.screen = ai_game.screen
         self.screen_rect = self.screen.get_rect()
 
-        self.width, self.height = 700, 80
-        self.title_color = (224, 89, 57)
-        self.text_color = (255, 235, 205)
-        self.font = pygame.font.SysFont(None, 96, bold=True)
+        self.width, self.height = 700, 80  # Sets width and height
+        self.title_color = (224, 89, 57)  # Sets box color
+        self.text_color = (255, 235, 205)  # Sets text color
+        self.font = pygame.font.SysFont(None, 96, bold=True)  # Sets font size and bolds
 
         self.rect = pygame.Rect(0, 0, self.width, self.height)
-        self.rect.midtop = self.screen_rect.midtop
-        self.rect.move_ip(0, 80)
+        self.rect.midtop = self.screen_rect.midtop  # Sets position midtop
+        self.rect.move_ip(0, 80)  # Sets 80 below midtop
 
-        self._prep_msg(msg)
+        self._prep_msg(msg)  # Initializes _prep_msg
 
     def _prep_msg(self, msg):
         self.msg_image = self.font.render(msg, True, self.text_color,
-                                          self.title_color)
-        self.msg_image_rect = self.msg_image.get_rect()
-        self.msg_image_rect.center = self.rect.center
+                                          self.title_color)  # Makes edges smoother and sets the text and background
+        # color
+        self.msg_image_rect = self.msg_image.get_rect()  # Creates rect from the image
+        self.msg_image_rect.center = self.rect.center  # Puts text in the center of the box
 
     def draw_title(self):
-        self.screen.fill(self.title_color, self.rect)
-        self.screen.blit(self.msg_image, self.msg_image_rect)
+        self.screen.fill(self.title_color, self.rect)  # Draws rectangular portion of the button
+        self.screen.blit(self.msg_image, self.msg_image_rect)  # Draws the text image to the screen
 
 
-class Quit:
+class Quit:  # Same as Title
 
     def __init__(self, ai_game, msg):
         self.screen = ai_game.screen
@@ -41,8 +42,8 @@ class Quit:
         self.font = pygame.font.SysFont(None, 48, bold=True)
 
         self.rect = pygame.Rect(0, 0, self.width, self.height)
-        self.rect.center = self.screen_rect.center
-        self.rect.move_ip(0, 180)
+        self.rect.center = self.screen_rect.center  # Sets position center
+        self.rect.move_ip(0, 180)  # Sets 180 below center
 
         self._prep_msg(msg)
 
@@ -57,7 +58,7 @@ class Quit:
         self.screen.blit(self.msg_image, self.msg_image_rect)
 
 
-class Button:
+class Button:  # Same as Title
 
     def __init__(self, ai_game, msg):
         self.screen = ai_game.screen
@@ -70,7 +71,7 @@ class Button:
 
         self.rect = pygame.Rect(0, 0, self.width, self.height)
         self.rect.center = self.screen_rect.center
-        self.rect.move_ip(-300, 0)
+        self.rect.move_ip(-300, 0)  # Sets 300 left of center
 
         self._prep_msg(msg)
 
@@ -85,7 +86,7 @@ class Button:
         self.screen.blit(self.msg_image, self.msg_image_rect)
 
 
-class Button1:
+class Button1:  # Same as Title
 
     def __init__(self, ai_game, msg):
         self.screen = ai_game.screen
@@ -98,7 +99,7 @@ class Button1:
 
         self.rect = pygame.Rect(0, 0, self.width, self.height)
         self.rect.center = self.screen_rect.center
-        self.rect.move_ip(300, 0)
+        self.rect.move_ip(300, 0)  # Sets 300 right of center
 
         self._prep_msg(msg)
 
@@ -113,7 +114,7 @@ class Button1:
         self.screen.blit(self.msg_image, self.msg_image_rect)
 
 
-class Creator:
+class Creator:  # Same as Title
 
     def __init__(self, ai_game, msg):
         self.screen = ai_game.screen
@@ -125,7 +126,7 @@ class Creator:
         self.font = pygame.font.SysFont(None, 92, bold=True, italic=True)
 
         self.rect = pygame.Rect(0, 0, self.width, self.height)
-        self.rect.midbottom = self.screen_rect.midbottom
+        self.rect.midbottom = self.screen_rect.midbottom  # Sets position midbottom
 
         self._prep_msg(msg)
 
@@ -140,7 +141,7 @@ class Creator:
         self.screen.blit(self.msg_image, self.msg_image_rect)
 
 
-class Hs:
+class Hs:  # Same as Title
 
     def __init__(self, ai_game, msg):
         self.screen = ai_game.screen
@@ -153,7 +154,7 @@ class Hs:
 
         self.rect = pygame.Rect(0, 0, self.width, self.height)
         self.rect.midtop = self.screen_rect.midtop
-        self.rect.move_ip(0, 80)
+        self.rect.move_ip(0, 80)  # Sets 80 below midtop
 
         self._prep_msg(msg)
 
@@ -168,14 +169,14 @@ class Hs:
         self.screen.blit(self.msg_image, self.msg_image_rect)
 
 
-class Click:
+class Click:  # Same as Title
 
     def __init__(self, ai_game):
         self.screen = ai_game.screen
         self.screen_rect = ai_game.screen.get_rect()
 
-        self.image = pygame.image.load('images/aliens.png')
-        self.image = pygame.transform.smoothscale(self.image, (230, 85))
+        self.image = pygame.image.load('images/aliens.png')  # Loads aliens image
+        self.image = pygame.transform.smoothscale(self.image, (230, 85))  # Smooths out the image and changes the size
         self.rect = self.image.get_rect()
 
         self.rect.topleft = self.screen_rect.topleft
@@ -184,16 +185,16 @@ class Click:
         self.screen.blit(self.image, self.rect)
 
 
-class Logo:
+class Logo:  # Same as Title
 
     def __init__(self, ai_game):
         self.screen = ai_game.screen
         self.screen_rect = ai_game.screen.get_rect()
 
-        self.image = pygame.image.load('images/ExtinctionGamesLogo.png')
-        self.image = pygame.transform.smoothscale(self.image, (130, 130))
+        self.image = pygame.image.load('images/ExtinctionGamesLogo.png')  # Loads logo image
+        self.image = pygame.transform.smoothscale(self.image, (130, 130))  # Smooths out the image and changes the size
         self.rect = self.image.get_rect()
-        self.rect.move_ip(730, 0)
+        self.rect.move_ip(730, 0)  # Sets 730 right of bottom
 
         self.rect.bottom = self.screen_rect.bottom
 
