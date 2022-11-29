@@ -42,7 +42,7 @@ Aliens and meteors will constantly attack, increasing in speed after every strik
 
 - Increasing difficulty
 - 3 lives per game and damage shown on character with graphics
-- Bullets and shields
+- Bullets, shields, and beams
 - Score board to keep track of your points
 - High score board to show how close you are to achieving the high score
 - Fun sounds for:
