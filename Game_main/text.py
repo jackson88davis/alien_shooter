@@ -43,7 +43,7 @@ class Quit:  # Same as Title
 
         self.rect = pygame.Rect(0, 0, self.width, self.height)
         self.rect.center = self.screen_rect.center  # Sets position center
-        self.rect.move_ip(0, 180)  # Sets 180 below center
+        self.rect.move_ip(0, 70)  # Sets 70 below center
 
         self._prep_msg(msg)
 
@@ -71,7 +71,7 @@ class Button:  # Same as Title
 
         self.rect = pygame.Rect(0, 0, self.width, self.height)
         self.rect.center = self.screen_rect.center
-        self.rect.move_ip(-300, 0)  # Sets 300 left of center
+        self.rect.move_ip(-400, -50)  # Sets 400 left and 50 above center
 
         self._prep_msg(msg)
 
@@ -99,7 +99,7 @@ class Button1:  # Same as Title
 
         self.rect = pygame.Rect(0, 0, self.width, self.height)
         self.rect.center = self.screen_rect.center
-        self.rect.move_ip(300, 0)  # Sets 300 right of center
+        self.rect.move_ip(400, -50)  # Sets 400 right and 50 above center
 
         self._prep_msg(msg)
 

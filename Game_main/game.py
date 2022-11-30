@@ -19,7 +19,9 @@ from instructions import Instructions_alien
 from instructions import Instructions_meteor
 from instructions import Instructions_lives
 from instructions import Instructions_move
+from instructions import Instructions_move1
 from instructions import Instructions_shoot
+from instructions import Instructions_shoot1
 from background import Background
 from background import Background1
 from background import Blackhole
@@ -143,7 +145,9 @@ class Game:
         self.play_instructions_meteor = Instructions_meteor(self, "-Meteors fall from the sky-")
         self.play_instructions_lives = Instructions_lives(self, "-You only have three lives-")
         self.play_instructions_move = Instructions_move(self, "-Use the arrow keys to move-")
+        self.play_instructions_move1 = Instructions_move1(self, "-Player 1 use arrow keys-")
         self.play_instructions_shoot = Instructions_shoot(self, "-Use the 'a', 'w', and 'd' keys to shoot-")
+        self.play_instructions_shoot1 = Instructions_shoot1(self, "-Player 2 use 'a', 'w', 's', and 'd'-")
         self.play_creator = Creator(self, "E-X-T-I-N-C-T-I-O-N       G-A-M-E-S")
         self.play_hs = Hs(self, "HIGH SCORE!")
         self.play_message = Message(self, "HOW DARE YOU!")
@@ -213,7 +217,9 @@ class Game:
                 self._check_instructions_meteor(mouse_pos)
                 self._check_instructions_lives(mouse_pos)
                 self._check_instructions_move(mouse_pos)
+                self._check_instructions_move1(mouse_pos)
                 self._check_instructions_shoot(mouse_pos)
+                self._check_instructions_shoot1(mouse_pos)
 
     def _check_play_button(self, mouse_pos):
         pygame.mixer.Sound.play(self.click_sound)  # Plays sound if mouse clicked
@@ -340,9 +346,19 @@ class Game:
         if instructions_move_clicked:
             pygame.mixer.Sound.play(self.instructions_sound)
 
+    def _check_instructions_move1(self, mouse_pos):  # Same as _check_instructions_alien
+        instructions_move1_clicked = self.play_instructions_move1.rect.collidepoint(mouse_pos)
+        if instructions_move1_clicked:
+            pygame.mixer.Sound.play(self.instructions_sound)
+
     def _check_instructions_shoot(self, mouse_pos):  # Same as _check_instructions_alien
         instructions_shoot_clicked = self.play_instructions_shoot.rect.collidepoint(mouse_pos)
         if instructions_shoot_clicked:
+            pygame.mixer.Sound.play(self.instructions_sound)
+
+    def _check_instructions_shoot1(self, mouse_pos):  # Same as _check_instructions_alien
+        instructions_shoot1_clicked = self.play_instructions_shoot1.rect.collidepoint(mouse_pos)
+        if instructions_shoot1_clicked:
             pygame.mixer.Sound.play(self.instructions_sound)
 
     def _check_keydown_events(self, event):
@@ -1070,7 +1086,9 @@ class Game:
             self.play_instructions_meteor.draw_instructions_meteor()
             self.play_instructions_lives.draw_instructions_lives()
             self.play_instructions_move.draw_instructions_move()
+            self.play_instructions_move1.draw_instructions_move1()
             self.play_instructions_shoot.draw_instructions_shoot()
+            self.play_instructions_shoot1.draw_instructions_shoot1()
             if self.sb.stats.score > 0 and self.sb.stats.score >= self.sb.stats.high_score:  # If score is greater
                 # Then 0 and score is greater than or equal to high score
                 self.play_hs.draw_hs()  # Draw high score on screen
