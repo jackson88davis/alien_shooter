@@ -12,6 +12,7 @@ from text import Quit
 from text import Button
 from text import Button1
 from text import Creator
+from text import Name
 from text import Hs
 from text import Click
 from text import Logo
@@ -151,6 +152,7 @@ class Game:
         self.play_instructions_shoot = Instructions_shoot(self, "-Use the 'a', 'w', and 'd' keys to shoot-")
         self.play_instructions_shoot1 = Instructions_shoot1(self, "-Player 2 use 'a', 'w', 's', and 'd'-")
         self.play_creator = Creator(self, "E-X-T-I-N-C-T-I-O-N       G-A-M-E-S")
+        self.play_name = Name(self, "Jackson Davis")
         self.play_hs = Hs(self, "HIGH SCORE!")
         self.play_message = Message(self, "HOW DARE YOU!")
         self.play_message1 = Message1(self, "YOU ARE A TRAITOR!")
@@ -1089,6 +1091,7 @@ class Game:
             self.play_quit.draw_quit()
             self.play_title.draw_title()
             self.play_creator.draw_creator()
+            self.play_name.draw_name()
             self.logo.blitme()
             self.play_instructions_alien.draw_instructions_alien()
             self.play_instructions_meteor.draw_instructions_meteor()

@@ -63,7 +63,7 @@ class Settings:
 
         self.bg_color = (254, 179, 114)  # Sets background color
 
-        self.speedup_scale = 1.02  # Sets increasing speed scale
+        self.speedup_scale = 1.01  # Sets increasing speed scale
         self.score_scale = 1.1  # Sets increasing score scale
 
         self.initialize_dynamic_settings()  # Initializes increasing difficulty
