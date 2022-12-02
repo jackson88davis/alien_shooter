@@ -43,7 +43,7 @@ class Quit:  # Same as Title
 
         self.rect = pygame.Rect(0, 0, self.width, self.height)
         self.rect.center = self.screen_rect.center  # Sets position center
-        self.rect.move_ip(0, 70)  # Sets 70 below center
+        self.rect.move_ip(0, 120)  # Sets 70 below center
 
         self._prep_msg(msg)
 
@@ -123,7 +123,7 @@ class Creator:  # Same as Title
         self.width, self.height = 1300, 130
         self.creator_color = (96, 0, 141)
         self.text_color = (0, 0, 0)
-        self.font = pygame.font.SysFont(None, 92, bold=True, italic=True)
+        self.font = pygame.font.Font("edo.ttf", 75, bold=True, italic=True)
 
         self.rect = pygame.Rect(0, 0, self.width, self.height)
         self.rect.midbottom = self.screen_rect.midbottom  # Sets position midbottom
@@ -194,7 +194,7 @@ class Logo:  # Same as Title
         self.image = pygame.image.load('images/ExtinctionGamesLogo.png')  # Loads logo image
         self.image = pygame.transform.smoothscale(self.image, (130, 130))  # Smooths out the image and changes the size
         self.rect = self.image.get_rect()
-        self.rect.move_ip(730, 0)  # Sets 730 right of bottom
+        self.rect.move_ip(745, 0)  # Sets 730 right of bottom
 
         self.rect.bottom = self.screen_rect.bottom
 

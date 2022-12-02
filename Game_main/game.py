@@ -18,6 +18,7 @@ from text import Logo
 from instructions import Instructions_alien
 from instructions import Instructions_meteor
 from instructions import Instructions_lives
+from instructions import Instructions_friend
 from instructions import Instructions_move
 from instructions import Instructions_move1
 from instructions import Instructions_shoot
@@ -144,6 +145,7 @@ class Game:
         self.play_instructions_alien = Instructions_alien(self, "-Aliens attack from the left and right-")
         self.play_instructions_meteor = Instructions_meteor(self, "-Meteors fall from the sky-")
         self.play_instructions_lives = Instructions_lives(self, "-You only have three lives-")
+        self.play_instructions_friend = Instructions_friend(self, "-Watch out for your alien friends-")
         self.play_instructions_move = Instructions_move(self, "-Use the arrow keys to move-")
         self.play_instructions_move1 = Instructions_move1(self, "-Player 1 use arrow keys-")
         self.play_instructions_shoot = Instructions_shoot(self, "-Use the 'a', 'w', and 'd' keys to shoot-")
@@ -216,6 +218,7 @@ class Game:
                 self._check_instructions_alien(mouse_pos)
                 self._check_instructions_meteor(mouse_pos)
                 self._check_instructions_lives(mouse_pos)
+                self._check_instructions_friend(mouse_pos)
                 self._check_instructions_move(mouse_pos)
                 self._check_instructions_move1(mouse_pos)
                 self._check_instructions_shoot(mouse_pos)
@@ -339,6 +342,11 @@ class Game:
     def _check_instructions_lives(self, mouse_pos):  # Same as _check_instructions_alien
         instructions_lives_clicked = self.play_instructions_lives.rect.collidepoint(mouse_pos)
         if instructions_lives_clicked:
+            pygame.mixer.Sound.play(self.instructions_sound)
+
+    def _check_instructions_friend(self, mouse_pos):  # Same as _check_instructions_alien
+        instructions_friend_clicked = self.play_instructions_friend.rect.collidepoint(mouse_pos)
+        if instructions_friend_clicked:
             pygame.mixer.Sound.play(self.instructions_sound)
 
     def _check_instructions_move(self, mouse_pos):  # Same as _check_instructions_alien
@@ -1085,6 +1093,7 @@ class Game:
             self.play_instructions_alien.draw_instructions_alien()
             self.play_instructions_meteor.draw_instructions_meteor()
             self.play_instructions_lives.draw_instructions_lives()
+            self.play_instructions_friend.draw_instructions_friend()
             self.play_instructions_move.draw_instructions_move()
             self.play_instructions_move1.draw_instructions_move1()
             self.play_instructions_shoot.draw_instructions_shoot()
